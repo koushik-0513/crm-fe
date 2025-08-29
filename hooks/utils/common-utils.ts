@@ -1,13 +1,6 @@
 import { toast } from "sonner";
 import { useState, useEffect } from "react";
 import { isAxiosError, isValidationError, isNetworkError } from '@/utils/type-guards';
-import { clsx, type ClassValue } from "clsx";
-import { twMerge } from "tailwind-merge";
-
-// Utility function for merging class names
-export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs));
-}
 
 // Common Error Handling
 export const handleApiError = ({ error, defaultMessage = "An error occurred" }: { error: unknown; defaultMessage?: string }) => {
