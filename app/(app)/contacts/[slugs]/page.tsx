@@ -146,35 +146,36 @@ export default function ContactDetail() {
   }
 
   return (
-    <div className="space-y-6 m-7">
-      <div className="flex items-center justify-between">
-        <div className="flex items-center space-x-4">
+    <div className="space-y-6 p-4 xl:p-7">
+      {/* Header Section */}
+      <div className="flex flex-col xl:flex-row xl:items-center xl:justify-between gap-4">
+        <div className="flex flex-col sm:flex-row sm:items-center gap-4">
           <Link href="/contacts">
-            <Button variant="ghost" size="sm">
+            <Button variant="ghost" size="sm" className="w-full sm:w-auto">
               <ArrowLeft className="h-4 w-4 mr-2" />
               Back to Contacts
             </Button>
           </Link>
-          <div className="h-8 w-px bg-slate-200"></div>
+          <div className="hidden sm:block h-8 w-px bg-slate-200"></div>
           <div className="flex items-center space-x-3">
-            <Avatar className="h-12 w-12">
+            <Avatar className="h-12 w-12 flex-shrink-0">
               <AvatarImage src="/placeholder.svg" />
               <AvatarFallback className="bg-gradient-to-br from-blue-500 to-purple-600 text-white">
                 {contact.avatar || contact.name?.[0] || "?"}
               </AvatarFallback>
             </Avatar>
-            <div>
-              <h1 className="text-2xl font-bold text-slate-900">
+            <div className="min-w-0 flex-1">
+              <h1 className="text-lg xl:text-xl font-bold text-slate-900 break-words">
                 {contact.name || "Unknown Contact"}
               </h1>
-              <p className="text-slate-600">
+              <p className="text-slate-600 text-sm xl:text-base break-words">
                 {contact.company || "No company specified"}
               </p>
             </div>
           </div>
         </div>
 
-        <div className="flex space-x-2">
+        <div className="flex flex-col sm:flex-row gap-2">
           <EditContactDialog
             isOpen={isEditModalOpen}
             setIsOpen={setIsEditModalOpen}
@@ -228,29 +229,36 @@ export default function ContactDetail() {
         </div>
       </div>
 
-      {/* Info Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <Card>
+      {/* Contact Information Cards */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        {/* Contact Information Card */}
+        <Card className="lg:col-span-2">
           <CardHeader>
-            <CardTitle className="text-lg">Contact Information</CardTitle>
+            <CardTitle className="text-lg flex items-center gap-2">
+              <Mail className="h-5 w-5 text-slate-500" />
+              Contact Information
+            </CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
-            {[
-              { icon: Mail, label: "Email", value: contact.email },
-              { icon: Phone, label: "Phone", value: contact.phone },
-              { icon: Building, label: "Company", value: contact.company },
-            ].map(({ icon: Icon, label, value }) => (
-              <div key={label} className="flex items-center space-x-3">
-                <Icon className="h-4 w-4 text-slate-400" />
-                <div>
-                  <p className="text-sm text-slate-500">{label}</p>
-                  <p className="font-medium">{value || "Not provided"}</p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {[
+                { icon: Mail, label: "Email", value: contact.email },
+                { icon: Phone, label: "Phone", value: contact.phone },
+                { icon: Building, label: "Company", value: contact.company },
+              ].map(({ icon: Icon, label, value }) => (
+                <div key={label} className="flex items-start space-x-3 p-3 rounded-lg bg-slate-50/50">
+                  <Icon className="h-5 w-5 text-slate-400 flex-shrink-0 mt-0.5" />
+                  <div className="min-w-0 flex-1">
+                    <p className="text-sm font-medium text-slate-700">{label}</p>
+                    <p className="text-sm text-slate-600 break-words">{value || "Not provided"}</p>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </CardContent>
         </Card>
 
+        {/* Tags Card */}
         <Card>
           <CardHeader>
             <CardTitle className="text-lg">Tags</CardTitle>
@@ -262,7 +270,7 @@ export default function ContactDetail() {
                   <Badge
                     key={index}
                     variant="outline"
-                    className="border-0"
+                    className="border-0 text-xs px-2 py-1"
                     style={{
                       backgroundColor: tagColorMap[tag] || "#e5e7eb",
                       color: "#ffffff",
@@ -277,18 +285,21 @@ export default function ContactDetail() {
             </div>
           </CardContent>
         </Card>
+      </div>
 
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-lg">Notes</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-slate-600">
+      {/* Notes Card */}
+      <Card>
+        <CardHeader>
+          <CardTitle className="text-lg">Notes</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="p-4 rounded-lg bg-slate-50/50">
+            <p className="text-slate-600 text-sm xl:text-base leading-relaxed break-words">
               {contact.note || "No notes available"}
             </p>
-          </CardContent>
-        </Card>
-      </div>
+          </div>
+        </CardContent>
+      </Card>
 
       {/* Activity History */}
       <ActivityHistory

@@ -1,5 +1,3 @@
-// FRONTEND: Updated Tags Page to Send Multiple Tags
-
 "use client";
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
@@ -153,25 +151,25 @@ const Tags = () => {
   const pagination = tagdata?.pagination;
 
   return (
-    <div className="space-y-6 m-7">
-      <Card className="p-6">
-        <div className="flex justify-between items-center">
-          <div>
-            <h1 className="text-3xl font-bold bg-gradient-to-r from-slate-900 to-slate-600 bg-clip-text text-transparent tags-header" id="wt-tags-page-title">
+    <div className="space-y-4 sm:space-y-6 mx-4 sm:mx-6 lg:m-7">
+      <Card className="p-4 sm:p-6">
+        <div className="flex flex-col space-y-4 sm:flex-row sm:justify-between sm:items-center sm:space-y-0">
+          <div className="text-center sm:text-left">
+            <h1 className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-slate-900 to-slate-600 bg-clip-text text-transparent tags-header" id="wt-tags-page-title">
               Tags Management
             </h1>
-            <p className="text-slate-600 mt-2">
+            <p className="text-slate-600 mt-1 sm:mt-2 text-sm sm:text-base">
               Organize your contacts with custom tags
             </p>
           </div>
           <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
             <DialogTrigger asChild>
-              <Button className="bg-gradient-to-r from-blue-600 to-purple-600 tags-add-button" id="wt-add-tag-btn">
+              <Button className="bg-gradient-to-r from-blue-600 to-purple-600 tags-add-button w-full sm:w-auto" id="wt-add-tag-btn">
                 <Plus className="h-4 w-4 mr-2" />
                 Add Tag(s)
               </Button>
             </DialogTrigger>
-            <DialogContent className="sm:max-w-[500px]">
+            <DialogContent className="mx-4 sm:mx-0 sm:max-w-[500px] max-h-[90vh] overflow-y-auto">
               <DialogHeader>
                 <DialogTitle>Add Multiple Tags</DialogTitle>
                 <DialogDescription>
@@ -186,9 +184,9 @@ const Tags = () => {
                 }}
               >
                 {newTags.map((tag, idx) => (
-                  <div key={idx} className="flex items-center gap-2">
-                    <div className="flex-1 space-y-2">
-                      <Label htmlFor={`name-${idx}`}>Tag Name *</Label>
+                  <div key={idx} className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-4 p-3 border rounded-lg bg-gray-50">
+                    <div className="flex-1 w-full space-y-2">
+                      <Label htmlFor={`name-${idx}`} className="text-sm font-medium">Tag Name *</Label>
                       <Input
                         id={`name-${idx}`}
                         name={`name-${idx}`}
@@ -198,26 +196,32 @@ const Tags = () => {
                         onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                           handleTagInputChange(idx, "name", e.target.value)
                         }
+                        className="w-full"
                       />
                     </div>
-                    <div className="space-y-2">
-                      <Label htmlFor={`color-${idx}`}>Color *</Label>
-                      <Input
-                        id={`color-${idx}`}
-                        name={`color-${idx}`}
-                        type="color"
-                        required
-                        value={tag.color}
-                        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                          handleTagInputChange(idx, "color", e.target.value)
-                        }
-                      />
+                    <div className="w-full sm:w-auto space-y-2">
+                      <Label htmlFor={`color-${idx}`} className="text-sm font-medium">Color *</Label>
+                      <div className="flex items-center gap-2">
+                        <Input
+                          id={`color-${idx}`}
+                          name={`color-${idx}`}
+                          type="color"
+                          required
+                          value={tag.color}
+                          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                            handleTagInputChange(idx, "color", e.target.value)
+                          }
+                          className="w-16 h-10 p-1 rounded"
+                        />
+                        <span className="text-xs text-gray-500 hidden sm:inline">{tag.color}</span>
+                      </div>
                     </div>
                     {newTags.length > 1 && (
                       <Button
                         type="button"
                         variant="outline"
-                        className="h-8 mt-6"
+                        size="sm"
+                        className="w-full sm:w-auto mt-2 sm:mt-6 text-red-600 border-red-200 hover:bg-red-50"
                         onClick={() => handleRemoveTagField(idx)}
                       >
                         Remove
@@ -225,25 +229,27 @@ const Tags = () => {
                     )}
                   </div>
                 ))}
-                <div className="flex justify-between">
+                <div className="flex flex-col sm:flex-row justify-between gap-3 pt-4 border-t">
                   <Button
                     type="button"
                     variant="outline"
                     onClick={handleAddTagField}
+                    className="w-full sm:w-auto order-2 sm:order-1"
                   >
                     + Add Another
                   </Button>
-                  <div className="flex space-x-2">
+                  <div className="flex flex-col sm:flex-row gap-2 sm:space-x-2 w-full sm:w-auto order-1 sm:order-2">
                     <Button
                       type="button"
                       variant="outline"
                       onClick={() => setIsAddDialogOpen(false)}
+                      className="w-full sm:w-auto"
                     >
                       Cancel
                     </Button>
                     <Button
                       type="submit"
-                      className="bg-gradient-to-r from-blue-600 to-purple-600"
+                      className="bg-gradient-to-r from-blue-600 to-purple-600 w-full sm:w-auto"
                       disabled={createBulkTagsMutation.isPending}
                     >
                       {createBulkTagsMutation.isPending ? "Adding..." : "Add Tag(s)"}
@@ -256,18 +262,18 @@ const Tags = () => {
         </div>
 
         {/* Search Bar */}
-        <div className="flex items-center space-x-4">
-          <div className="relative flex-1 max-w-md tags-search" id="wt-tags-search-input">
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center space-y-4 sm:space-y-0 sm:space-x-4 mt-6">
+          <div className="relative flex-1 max-w-full sm:max-w-md tags-search" id="wt-tags-search-input">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
             <Input
               placeholder="Search tags..."
               value={searchTerm}
               onChange={(e) => handleSearchChange(e.target.value)}
-              className="pl-10"
+              className="pl-10 w-full"
             />
           </div>
           {pagination && (
-            <div className="text-sm text-gray-600">
+            <div className="text-sm text-gray-600 text-center sm:text-left whitespace-nowrap">
               Showing {tags.length} of {pagination.total} tags
             </div>
           )}
@@ -275,10 +281,10 @@ const Tags = () => {
       </Card>
 
       <Card className="tags-list" id="wt-tags-list-container">
-        <CardHeader>
-          <CardTitle>All Tags</CardTitle>
+        <CardHeader className="p-4 sm:p-6">
+          <CardTitle className="text-lg sm:text-xl">All Tags</CardTitle>
         </CardHeader>
-        <CardContent>
+        <CardContent className="p-4 sm:p-6 pt-0">
           {isLoading ? (
             <div className="flex items-center justify-center py-8">
               <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-blue-600"></div>
@@ -290,29 +296,34 @@ const Tags = () => {
             </div>
           ) : (
             <>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4">
                 {tags.map((tag: TTag) => (
                   <div
                     key={tag._id}
-                    className="p-4 border border-slate-200 rounded-lg hover:shadow-md transition-shadow"
+                    className="p-3 sm:p-4 border border-slate-200 rounded-lg hover:shadow-md transition-shadow bg-white"
                     id="wt-tag-actions"
                   >
-                    <div className="flex items-center justify-between mb-3">
-                      <div className="flex items-center space-x-3">
+                    <div className="flex flex-col space-y-3">
+                      {/* Tag info section */}
+                      <div className="flex items-center space-x-3 min-w-0">
                         <div
-                          className="w-4 h-4 rounded-full"
+                          className="w-4 h-4 rounded-full flex-shrink-0"
                           style={{ backgroundColor: tag.color }}
                         ></div>
-                        <span className="font-medium">{tag.name}</span>
-                        <span className="text-xs text-slate-500 ml-2">
-                          {tagCounts[tag.name] || 0} contact
-                          {(tagCounts[tag.name] || 0) === 1 ? "" : "s"}
-                        </span>
+                        <div className="flex-1 min-w-0">
+                          <span className="font-medium text-sm sm:text-base truncate block">{tag.name}</span>
+                          <span className="text-xs text-slate-500 block mt-1">
+                            {tagCounts[tag.name] || 0} contact{(tagCounts[tag.name] || 0) === 1 ? "" : "s"}
+                          </span>
+                        </div>
                       </div>
-                      <div className="flex space-x-1">
+                      
+                      {/* Action buttons */}
+                      <div className="flex space-x-1 justify-end">
                         <Button
                           variant="ghost"
                           size="sm"
+                          className="h-8 w-8 p-0"
                           onClick={() => {
                             setEditingTag(tag);
                             setEditName(tag.name);
@@ -325,7 +336,7 @@ const Tags = () => {
                         <Button
                           variant="ghost"
                           size="sm"
-                          className="text-red-600"
+                          className="text-red-600 hover:bg-red-50 h-8 w-8 p-0"
                           onClick={() => handleDeleteTag(tag._id)}
                           disabled={deleteTagMutation.isPending}
                         >
@@ -339,57 +350,85 @@ const Tags = () => {
 
               {/* Pagination Controls */}
               {pagination && pagination.total_pages > 1 && (
-                <div className="flex justify-center items-center space-x-2 mt-6">
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={() => handlePageChange(currentPage - 1)}
-                    disabled={pagination.page <= 1}
-                    id="wt-tags-pagination-previous"
-                  >
-                    <ChevronLeft className="h-4 w-4" />
-                    Previous
-                  </Button>
+                <div className="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-2 mt-6">
+                  {/* Mobile pagination info */}
+                  <div className="text-sm text-gray-600 sm:hidden">
+                    Page {currentPage} of {pagination.total_pages}
+                  </div>
+                  
+                  <div className="flex items-center space-x-1 sm:space-x-2">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => handlePageChange(currentPage - 1)}
+                      disabled={pagination.page <= 1}
+                      id="wt-tags-pagination-previous"
+                      className="px-2 sm:px-3"
+                    >
+                      <ChevronLeft className="h-4 w-4" />
+                      <span className="hidden sm:inline ml-1">Previous</span>
+                    </Button>
 
-                  <div className="flex items-center space-x-1">
-                    {Array.from({ length: Math.min(5, pagination.total_pages) }, (_, i) => {
-                      let pageNum;
-                      if (pagination.total_pages <= 5) {
-                        pageNum = i + 1;
-                      } else if (currentPage <= 3) {
-                        pageNum = i + 1;
-                      } else if (currentPage >= pagination.total_pages - 2) {
-                        pageNum = pagination.total_pages - 4 + i;
-                      } else {
-                        pageNum = currentPage - 2 + i;
-                      }
+                    {/* Desktop pagination numbers */}
+                    <div className="hidden sm:flex items-center space-x-1">
+                      {Array.from({ length: Math.min(5, pagination.total_pages) }, (_, i) => {
+                        let pageNum;
+                        if (pagination.total_pages <= 5) {
+                          pageNum = i + 1;
+                        } else if (currentPage <= 3) {
+                          pageNum = i + 1;
+                        } else if (currentPage >= pagination.total_pages - 2) {
+                          pageNum = pagination.total_pages - 4 + i;
+                        } else {
+                          pageNum = currentPage - 2 + i;
+                        }
 
-                      return (
+                        return (
+                          <Button
+                            key={pageNum}
+                            variant={currentPage === pageNum ? "default" : "outline"}
+                            size="sm"
+                            onClick={() => handlePageChange(pageNum)}
+                            className="w-8 h-8 tags-pagination-page"
+                            id="wt-tags-pagination-page"
+                          >
+                            {pageNum}
+                          </Button>
+                        );
+                      })}
+                    </div>
+
+                    {/* Mobile pagination numbers - simplified */}
+                    <div className="flex sm:hidden items-center space-x-1">
+                      {[
+                        Math.max(1, currentPage - 1),
+                        currentPage,
+                        Math.min(pagination.total_pages, currentPage + 1)
+                      ].filter((num, idx, arr) => arr.indexOf(num) === idx).map(pageNum => (
                         <Button
                           key={pageNum}
                           variant={currentPage === pageNum ? "default" : "outline"}
                           size="sm"
                           onClick={() => handlePageChange(pageNum)}
-                          className="w-8 h-8 tags-pagination-page"
-                          id="wt-tags-pagination-page"
+                          className="w-8 h-8"
                         >
                           {pageNum}
                         </Button>
-                      );
-                    })}
-                  </div>
+                      ))}
+                    </div>
 
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={() => handlePageChange(currentPage + 1)}
-                    disabled={pagination.page >= pagination.total_pages}
-                    className="tags-pagination-next"
-                    id="wt-tags-pagination-next"
-                  >
-                    Next
-                    <ChevronRight className="h-4 w-4" />
-                  </Button>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => handlePageChange(currentPage + 1)}
+                      disabled={pagination.page >= pagination.total_pages}
+                      className="tags-pagination-next px-2 sm:px-3"
+                      id="wt-tags-pagination-next"
+                    >
+                      <span className="hidden sm:inline mr-1">Next</span>
+                      <ChevronRight className="h-4 w-4" />
+                    </Button>
+                  </div>
                 </div>
               )}
             </>
@@ -398,7 +437,7 @@ const Tags = () => {
       </Card>
 
       <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
-        <DialogContent className="sm:max-w-[425px]">
+        <DialogContent className="mx-4 sm:mx-0 sm:max-w-[425px]">
           <DialogHeader>
             <DialogTitle>Edit Tag</DialogTitle>
             <DialogDescription>Update the tag information.</DialogDescription>
@@ -411,38 +450,44 @@ const Tags = () => {
             }}
           >
             <div className="space-y-2">
-              <Label htmlFor="edit-name">Tag Name *</Label>
+              <Label htmlFor="edit-name" className="text-sm font-medium">Tag Name *</Label>
               <Input
                 id="edit-name"
                 name="name"
                 value={editName}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEditName(e.target.value)}
                 required
+                className="w-full"
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="edit-color">Color *</Label>
-              <Input
-                id="edit-color"
-                name="color"
-                type="color"
-                value={editColor}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEditColor(e.target.value)}
-                required
-              />
+              <Label htmlFor="edit-color" className="text-sm font-medium">Color *</Label>
+              <div className="flex items-center gap-3">
+                <Input
+                  id="edit-color"
+                  name="color"
+                  type="color"
+                  value={editColor}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEditColor(e.target.value)}
+                  required
+                  className="w-16 h-10 p-1 rounded"
+                />
+                <span className="text-sm text-gray-500">{editColor}</span>
+              </div>
             </div>
-            <div className="flex justify-end space-x-2">
+            <div className="flex flex-col sm:flex-row justify-end gap-2 sm:space-x-2 pt-4 border-t">
               <Button
                 type="button"
                 variant="outline"
                 onClick={() => setIsEditDialogOpen(false)}
                 id="wt-edit-tag-cancel-btn"
+                className="w-full sm:w-auto order-2 sm:order-1"
               >
                 Cancel
               </Button>
               <Button
                 type="submit"
-                className="bg-gradient-to-r from-blue-600 to-purple-600"
+                className="bg-gradient-to-r from-blue-600 to-purple-600 w-full sm:w-auto order-1 sm:order-2"
                 disabled={updateTagMutation.isPending}
                 id="wt-edit-tag-save-btn"
               >

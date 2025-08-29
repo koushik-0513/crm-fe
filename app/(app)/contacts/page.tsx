@@ -174,7 +174,7 @@ const Contacts = () => {
             variant={viewMode === "list" ? "default" : "ghost"}
             size="sm"
             onClick={() => handleViewModeChange("list")}
-            className="hidden lg:flex rounded-none border-0"
+            className="hidden xl:flex rounded-none border-0"
           >
             <List className="h-4 w-4 mr-2"/>
             List

@@ -5,7 +5,7 @@ export { Label } from "@/components/ui/label";
 export { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 export { Badge } from "@/components/ui/badge";
 export { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-// export { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
+export { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 export { Checkbox } from "@/components/ui/checkbox";
 export { Textarea } from "@/components/ui/textarea";
 export { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";

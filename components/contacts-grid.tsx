@@ -90,7 +90,7 @@ const ContactsGrid: React.FC<ContactsGridProps> = ({
                   }
                   onClick={(e) => e.stopPropagation()}
                 />
-              </div>
+              </div>    
 
               <div className="space-y-2 mb-3">
                 <div className="flex items-center space-x-2 text-xs text-slate-600">

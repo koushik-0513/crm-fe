@@ -306,8 +306,8 @@ const Dashboard = () => {
         </CardHeader>
         <CardContent>
           {tagDistribution.length > 0 ? (
-            <div className="flex flex-col lg:flex-row items-center">
-              <ResponsiveContainer width="100%" height={300} className="lg:w-1/2">
+            <div className="flex flex-col xl:flex-row items-center">
+              <ResponsiveContainer width="100%" height={300} className="xl:w-1/2">
                 <PieChart>
                   <Pie
                     data={tagDistribution}
@@ -334,7 +334,7 @@ const Dashboard = () => {
                   />
                 </PieChart>
               </ResponsiveContainer>
-              <div className="lg:w-1/2 space-y-4 pl-8">
+              <div className="xl:w-1/2 space-y-4 pl-8">
                 {tagDistribution.map((tag, index) => (
                   <div key={index} className="flex items-center space-x-4">
                     <div

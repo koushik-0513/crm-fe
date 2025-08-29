@@ -31,8 +31,8 @@ export const NotificationBell: React.FC = () => {
     }
   };
 
-  // Only show for users, not admins
-  if (user_profile?.role === "admin") {
+  // Only show for users and admins, not individual
+  if (user_profile?.role === "individual") {
     return null;
   }
 

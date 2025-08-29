@@ -234,22 +234,23 @@ const Profile = () => {
   }
 
   return (
-    <div className="space-y-6 max-w-4xl profile-settings m-7">
-      <Card className = "p-5">
+    <div className="space-y-6 max-w-4xl mx-auto p-4 xl:p-7">
+      <Card className="p-4 xl:p-5">
         <CardHeader>
-          <CardTitle className="text-2xl font-bold bg-gradient-to-r from-slate-900 to-slate-600 bg-clip-text text-transparent" id="wt-profile-page-title">Profile Information</CardTitle>
+          <CardTitle className="text-xl xl:text-2xl font-bold bg-gradient-to-r from-slate-900 to-slate-600 bg-clip-text text-transparent" id="wt-profile-page-title">Profile Information</CardTitle>
           <CardDescription>Update your personal details</CardDescription>
         </CardHeader>
       </Card>
 
       <Card className="profile-info" id="wt-profile-form">
         <CardHeader>
-          <CardTitle>Profile </CardTitle>
+          <CardTitle>Profile</CardTitle>
           <CardDescription></CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
-          <div className="flex items-center space-x-4">
-            <Avatar className="h-20 w-20">
+          {/* Avatar Section - Keep on same line */}
+          <div className="flex items-center gap-4">
+            <Avatar className="h-20 w-20 flex-shrink-0">
               <AvatarImage
                 src={
                   profile.avatar
@@ -265,8 +266,8 @@ const Profile = () => {
                 {profile.lastname?.[0] || ""}
               </AvatarFallback>
             </Avatar>
-            <div className="space-y-2">
-              <div className="flex items-center space-x-2">
+            <div className="space-y-3 flex-1 min-w-0">
+              <div className="flex flex-col sm:flex-row gap-2">
                 <Button variant="outline" className="relative profile-avatar" id="wt-profile-avatar">
                   <Camera className="h-4 w-4 mr-2" />
                   Select Image
@@ -289,7 +290,7 @@ const Profile = () => {
                 )}
               </div>
               {image && (
-                <p className="text-sm text-green-600">Selected: {image.name}</p>
+                <p className="text-sm text-green-600 truncate">Selected: {image.name}</p>
               )}
               <p className="text-sm text-slate-500">
                 JPG, PNG or GIF. Max size 2MB.
@@ -297,56 +298,57 @@ const Profile = () => {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 profile-user-info">
-            <div>
+          {/* Profile Information Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 profile-user-info">
+            <div className="space-y-2">
               <Label>First Name</Label>
-              <div className="border rounded px-3 py-2 bg-slate-50">
-                {profile.firstname || "Not set"}
+              <div className="border rounded px-3 py-2 bg-slate-50 min-h-[40px] flex items-center">
+                <span className="truncate">{profile.firstname || "Not set"}</span>
               </div>
             </div>
-            <div>
+            <div className="space-y-2">
               <Label>Last Name</Label>
-              <div className="border rounded px-3 py-2 bg-slate-50">
-                {profile.lastname || "Not set"}
+              <div className="border rounded px-3 py-2 bg-slate-50 min-h-[40px] flex items-center">
+                <span className="truncate">{profile.lastname || "Not set"}</span>
               </div>
             </div>
-            <div>
+            <div className="space-y-2">
               <Label>Email</Label>
-              <div className="border rounded px-3 py-2 bg-slate-50">
-                {profile.email || "Not set"}
+              <div className="border rounded px-3 py-2 bg-slate-50 min-h-[40px] flex items-center">
+                <span className="truncate">{profile.email || "Not set"}</span>
               </div>
             </div>
-            <div>
+            <div className="space-y-2">
               <Label>Phone</Label>
-              <div className="border rounded px-3 py-2 bg-slate-50">
-                {profile.phone || "Not set"}
+              <div className="border rounded px-3 py-2 bg-slate-50 min-h-[40px] flex items-center">
+                <span className="truncate">{profile.phone || "Not set"}</span>
               </div>
             </div>
-            <div>
+            <div className="space-y-2">
               <Label>Company</Label>
-              <div className="border rounded px-3 py-2 bg-slate-50">
-                {profile.company || "Not set"}
+              <div className="border rounded px-3 py-2 bg-slate-50 min-h-[40px] flex items-center">
+                <span className="truncate">{profile.company || "Not set"}</span>
               </div>
             </div>
             {profile.role === "admin" && (
               <>
-                <div>
+                <div className="space-y-2">
                   <Label>Organization Name</Label>
-                  <div className="border rounded px-3 py-2 bg-slate-50">
-                    {profile.organizationName || "Not set"}
+                  <div className="border rounded px-3 py-2 bg-slate-50 min-h-[40px] flex items-center">
+                    <span className="truncate">{profile.organizationName || "Not set"}</span>
                   </div>
                 </div>
-                <div>
+                <div className="space-y-2">
                   <Label>Team Code</Label>
-                  <div className="border rounded px-3 py-2 bg-slate-50 font-mono">
-                    {profile.teamCode || "Not set"}
+                  <div className="border rounded px-3 py-2 bg-slate-50 min-h-[40px] flex items-center font-mono">
+                    <span className="truncate">{profile.teamCode || "Not set"}</span>
                   </div>
                 </div>
               </>
             )}
-            <div>
+            <div className="space-y-2 sm:col-span-2">
               <Label>Role</Label>
-              <div className="border rounded px-3 py-2 bg-slate-50">
+              <div className="border rounded px-3 py-2 bg-slate-50 min-h-[40px] flex items-center">
                 <span className={`px-2 py-1 rounded-full text-xs font-medium ${
                   profile.role === "admin" ? "bg-purple-100 text-purple-800" :
                   profile.role === "user" ? "bg-blue-100 text-blue-800" :
@@ -359,7 +361,8 @@ const Profile = () => {
             </div>
           </div>
 
-          <div className="flex gap-4 mt-4">
+          {/* Action Buttons */}
+          <div className="flex flex-col sm:flex-row gap-4 mt-6">
             <Button variant="outline" onClick={handleEdit} className="profile-edit-button" id="wt-profile-edit-btn">
               <Edit3 className="h-4 w-4 mr-2" />
               Edit Profile
@@ -407,21 +410,22 @@ const Profile = () => {
               </AlertDialogContent>
             </AlertDialog>
             
-            <div className="text-xs text-gray-500 mt-2">
+            <div className="text-xs text-gray-500 mt-2 sm:mt-0">
               Walkthrough Status: {is_completed ? 'Completed' : 'Not Completed'}
             </div>
           </div>
         </CardContent>
       </Card>
 
+      {/* Edit Profile Dialog */}
       <Dialog open={isEditing} onOpenChange={setIsEditing}>
-        <DialogContent>
+        <DialogContent className="max-w-md mx-auto">
           <DialogHeader>
             <DialogTitle>Edit Profile</DialogTitle>
             <DialogDescription>Update your personal details</DialogDescription>
           </DialogHeader>
           <form onSubmit={handleEditSubmit} className="space-y-4">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="space-y-2">
                 <Label htmlFor="firstname">First Name</Label>
                 <Input
@@ -482,7 +486,7 @@ const Profile = () => {
                 />
               </div>
             )}
-            <div className="flex justify-end space-x-2">
+            <div className="flex flex-col sm:flex-row justify-end gap-2 pt-4">
               <Button
                 variant="outline"
                 type="button"
