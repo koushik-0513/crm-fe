@@ -8,7 +8,7 @@ import { useAuth } from "@/contexts/auth-context";
 import { toast } from "sonner";
 import { useUserProfile, useUpdateUserProfile, useDeleteUserAccount } from "@/hooks/apis/user-service";
 import { TUserData, TUpdateData } from "@/hooks/utils/common-types";
-import { validateImageFile, handleApiError } from "@/hooks/utils/common-utils";
+import { validateImageFile } from "@/hooks/utils/common-utils";
 import { Walkthrough, use_page_walkthrough } from "@/components/walk-through-component";
 import { getPageWalkthroughSteps, WalkthroughPage } from "@/types/walkthrough-config";
 
