@@ -22,10 +22,8 @@ import {
   Tags,
   LogOut,
   Menu,
-  X,
   Search,
   RotateCcw,
-  User,
 } from "lucide-react";
 import { useAuth } from "@/contexts/auth-context";
 import { useUserProfile } from "@/hooks/apis/user-service";

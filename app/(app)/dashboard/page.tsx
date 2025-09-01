@@ -357,7 +357,7 @@ const Dashboard = () => {
         </CardContent>
       </Card>
 
-      <Walkthrough steps={getPageWalkthroughSteps(WalkthroughPage.DASHBOARD)} auto_start={true} className="dashboard-walkthrough" page_name={WalkthroughPage.DASHBOARD} />
+      <Walkthrough steps={getPageWalkthroughSteps(WalkthroughPage.DASHBOARD)} auto_start={true} page_name={WalkthroughPage.DASHBOARD} />
     </div>
     
   );

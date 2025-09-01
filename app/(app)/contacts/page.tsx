@@ -268,7 +268,7 @@ const Contacts = () => {
       )}
 
       {/* Page-specific walkthrough */}
-      <Walkthrough steps={getPageWalkthroughSteps(WalkthroughPage.CONTACTS)} auto_start={true} className="contacts-walkthrough" page_name={WalkthroughPage.CONTACTS} />
+      <Walkthrough steps={getPageWalkthroughSteps(WalkthroughPage.CONTACTS)} auto_start={true} page_name={WalkthroughPage.CONTACTS} />
 
       {/* Dialogs */}
       <ContactFormDialog

@@ -2,10 +2,7 @@ export default async function handler(req,res){
     if(req.method !== "POST") return res.status(405).end()
 
     try{
-        const {uid,email,displayname,photourl} = req.body;
         const token = req.headers.authorisation?.split(" ")[i];
-
-        
 
         const responce = await fetch(`${process.env.BACKEND_URL}/api/auth/verify-token`,{
             method:"POST",

@@ -14,7 +14,6 @@ import {
 type TWalkthroughProps = {
   steps: TWalkthroughStep[]
   auto_start: boolean
-  className: string
   page_name: string
 }
 
@@ -28,7 +27,6 @@ type TWalkthroughState = {
 export const Walkthrough: React.FC<TWalkthroughProps> = ({
   steps,
   auto_start = false,
-  className,
   page_name
 }) => {
   const [state, set_state] = useState<TWalkthroughState>({

@@ -508,7 +508,7 @@ const Profile = () => {
       </Dialog>
       
       {/* Page-specific walkthrough */}
-      <Walkthrough steps={getPageWalkthroughSteps(WalkthroughPage.PROFILE)} auto_start={true} className="profile-walkthrough" page_name={WalkthroughPage.PROFILE} />
+      <Walkthrough steps={getPageWalkthroughSteps(WalkthroughPage.PROFILE)} auto_start={true} page_name={WalkthroughPage.PROFILE} />
     </div>
   );
 };

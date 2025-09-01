@@ -9,7 +9,6 @@ import {
   Users,
   Activity,
   Tags,
-  MessageCircle,
   LogOut,
   ChevronLeft,
   ChevronRight,

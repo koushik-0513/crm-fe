@@ -150,7 +150,7 @@ export const useUpdateUserProfile = () => {
   
   return useMutation({
     mutationFn: updateUserProfile,
-    onSuccess: (data) => {
+    onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["user-profile"] });
       toast.success("Profile updated successfully");
     },
@@ -166,11 +166,11 @@ export const useDeleteUserAccount = () => {
   
   return useMutation({
     mutationFn: deleteUserAccount,
-    onSuccess: (data) => {
+    onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["user-profile"] });
       toast.success("Account deleted successfully");
     },
-    onError: (error) => {
+    onError: () => {
       toast.error("Failed to delete account");
     },
   });

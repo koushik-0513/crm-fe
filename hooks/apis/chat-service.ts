@@ -254,7 +254,7 @@ export const useSendChatMessage = () => {
       conversationId: string; 
       modelName?: string 
     }) => sendChatMessage(message, conversationId, modelName),
-    onSuccess: (data, variables) => {
+    onSuccess: (_, variables) => {
       queryClient.invalidateQueries({ queryKey: ["chat-history"] });
       queryClient.invalidateQueries({ queryKey: ["conversation", variables.conversationId] });
     },
@@ -269,7 +269,7 @@ export const useDeleteConversation = () => {
   
   return useMutation({
     mutationFn: deleteConversation,
-    onSuccess: (data) => {
+    onSuccess: () => {
       toast.success("Conversation deleted successfully");
       queryClient.invalidateQueries({ queryKey: ["chat-history"] });
     },
@@ -285,7 +285,7 @@ export const useUpdateConversationTitle = () => {
   return useMutation({
     mutationFn: ({ conversationId, title }: { conversationId: string; title: string }) =>
       updateConversationTitle(conversationId, title),
-    onSuccess: (data, variables) => {
+    onSuccess: (_, variables) => {
       toast.success("Conversation title updated successfully");
       queryClient.invalidateQueries({ queryKey: ["chat-history"] });
       queryClient.invalidateQueries({ queryKey: ["conversation", variables.conversationId] });

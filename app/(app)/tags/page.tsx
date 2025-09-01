@@ -499,7 +499,7 @@ const Tags = () => {
       </Dialog>
 
       {/* Page-specific walkthrough */}
-      <Walkthrough steps={getPageWalkthroughSteps(WalkthroughPage.TAGS)} auto_start={true} className="tags-walkthrough" page_name={WalkthroughPage.TAGS} />
+      <Walkthrough steps={getPageWalkthroughSteps(WalkthroughPage.TAGS)} auto_start={true} page_name={WalkthroughPage.TAGS} />
     </div>
   );
 };

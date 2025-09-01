@@ -167,8 +167,8 @@ export const use_send_notification = () => {
       queryClient.invalidateQueries({ queryKey: ["user-notifications"] });
       toast.success("Notification sent successfully");
     },
-    onError: (error) => {
-      const errorMessage = error instanceof Error ? error.message : "Failed to send notification";
+    onError: () => {
+      const errorMessage = "Failed to send notification";
       toast.error(errorMessage);
     },
   });
@@ -182,7 +182,7 @@ export const use_mark_notification_read = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["user-notifications"] });
     },
-    onError: (error) => {
+    onError: () => {
       toast.error("Failed to mark notification as read");
     },
   });

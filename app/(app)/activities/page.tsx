@@ -378,7 +378,7 @@ const Activities = () => {
       </div>
       
       {/* Page-specific walkthrough */}
-      <Walkthrough steps={getPageWalkthroughSteps(WalkthroughPage.ACTIVITIES)} auto_start={true} className="activities-walkthrough" page_name={WalkthroughPage.ACTIVITIES}  />
+      <Walkthrough steps={getPageWalkthroughSteps(WalkthroughPage.ACTIVITIES)} auto_start={true} page_name={WalkthroughPage.ACTIVITIES}  />
     </div>
   );
 };

@@ -5,7 +5,6 @@ import {
   TAG_QUERY_KEYS,
   createMutationSuccessHandler,
   createMutationErrorHandler,
-  invalidateQueries
 } from "@/hooks/utils/api-utils";
 import type { 
   TTag, 

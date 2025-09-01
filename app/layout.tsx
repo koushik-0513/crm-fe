@@ -1,9 +1,10 @@
 import "./global.css"
 import React from "react";
-import { Suspense } from "react";
 import { AuthProvider } from "@/contexts/auth-context";
 import Provider from "./provider";
 import { Toaster } from "sonner";
+import { PWAInstallPrompt } from "@/components/pwa-install-prompt";
+import { OfflineIndicator } from "@/components/offline-indicator";
 
 type TRootLayoutProps = {
   children: React.ReactNode;
@@ -40,6 +41,8 @@ export default function RootLayout({ children }: TRootLayoutProps) {
             <Provider>
               <Toaster richColors position="top-right"/>
               {children}
+              <PWAInstallPrompt />
+              <OfflineIndicator />
             </Provider>
           </AuthProvider>
       </body>
