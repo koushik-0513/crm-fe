@@ -4,6 +4,18 @@ import type { NextRequest } from 'next/server'
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl
   
+  // Allow public access to PWA files and static assets
+  if (pathname.startsWith('/manifest.json') || 
+      pathname.startsWith('/manifest.webmanifest') ||
+      pathname.startsWith('/sw.js') ||
+      pathname.startsWith('/workbox-') ||
+      pathname.startsWith('/icons/') ||
+      pathname.startsWith('/_next/') ||
+      pathname.startsWith('/api/') ||
+      pathname === '/') {
+    return NextResponse.next()
+  }
+  
   // Check if user is authenticated by looking for the token cookie
   const token = request.cookies.get('token')
   

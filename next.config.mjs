@@ -22,9 +22,9 @@ const pwaConfig = withPWA({
   dest: 'public',
   register: true,
   skipWaiting: true,
-  disable: process.env.NODE_ENV === 'development', // Disable PWA in development to avoid conflicts
+  disable: false, // Enable PWA in all environments
   publicExcludes: ['!manifest.json'],
-  buildExcludes: [/manifest\.json$/],
+  buildExcludes: [],
   fallbacks: {
     document: '/offline.html',
   },

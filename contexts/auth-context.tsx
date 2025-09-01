@@ -22,9 +22,12 @@ import { auth, googleProvider } from "@/firebase";
 import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
 
-// Use env var or fallback
+// Use env var or fallback - support both local and production
 const BACKEND_URL =
-  process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
+  process.env.NEXT_PUBLIC_API_URL || 
+  (typeof window !== 'undefined' && window.location.hostname !== 'localhost' 
+    ? "https://your-backend-url.herokuapp.com" // Replace with your actual backend URL
+    : "http://localhost:5000");
 
 // 🔹 Define context types
 type TAuthContextType = {
