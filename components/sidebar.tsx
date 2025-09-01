@@ -9,6 +9,7 @@ import {
   Users,
   Activity,
   Tags,
+  MessageCircle,
   LogOut,
   ChevronLeft,
   ChevronRight,
@@ -62,6 +63,7 @@ const Sidebar = () => {
     { id: 'wt-contacts-nav-link', icon: Users, label: "Contacts", path: "/contacts" },
     { id: 'wt-activities-nav-link', icon: Activity, label: "Activities", path: "/activities" },
     { id: 'wt-tags-nav-link', icon: Tags, label: "Tags", path: "/tags" },
+    ...(userProfile?.role !== 'individual' ? [{ id: 'wt-chat-nav-link', icon: MessageCircle, label: "Chat", path: "/chat" }] : []),
   ];
 
   // Get user initials for avatar fallback

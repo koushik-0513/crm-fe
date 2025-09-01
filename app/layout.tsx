@@ -1,6 +1,7 @@
 import "./global.css"
 import React from "react";
 import { AuthProvider } from "@/contexts/auth-context";
+import { SocketProvider } from "@/contexts/socket-context";
 import Provider from "./provider";
 import { Toaster } from "sonner";
 import { PWAInstallPrompt } from "@/components/pwa-install-prompt";
@@ -39,12 +40,14 @@ export default function RootLayout({ children }: TRootLayoutProps) {
       </head>
       <body>
           <AuthProvider>
-            <Provider>
-              <Toaster richColors position="top-right"/>
-              {children}
-              <PWAInstallPrompt />
-              <OfflineIndicator />
-            </Provider>
+            <SocketProvider>
+              <Provider>
+                <Toaster richColors position="top-right"/>
+                {children}
+                <PWAInstallPrompt />
+                <OfflineIndicator />
+              </Provider>
+            </SocketProvider>
           </AuthProvider>
       </body>
     </html>

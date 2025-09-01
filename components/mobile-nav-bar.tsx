@@ -20,6 +20,7 @@ import {
   Users,
   Activity,
   Tags,
+  MessageCircle,
   LogOut,
   Menu,
   Search,
@@ -33,6 +34,8 @@ import { TNavigationPage } from "@/hooks/utils/common-types";
 import type { TSearchResults as SearchResults } from "@/types/global";
 import { use_reset_all_walkthroughs } from "@/components/walk-through-component";
 import { NotificationBell } from "@/components/notification-bell";
+import { SendNotificationDialog } from "@/components/send-notification-dialog";
+import { BulkNotificationDialog } from "@/components/bulk-notification-dialog";
 
 // Extend Window interface for global functions
 declare global {
@@ -67,6 +70,7 @@ const MobileNavBar = () => {
     { id: 'wt-contacts-nav-link', icon: Users, label: "Contacts", path: "/contacts" },
     { id: 'wt-activities-nav-link', icon: Activity, label: "Activities", path: "/activities" },
     { id: 'wt-tags-nav-link', icon: Tags, label: "Tags", path: "/tags" },
+    ...(userProfile?.role !== 'individual' ? [{ id: 'wt-chat-nav-link', icon: MessageCircle, label: "Chat", path: "/chat" }] : []),
   ];
 
   const pages: TNavigationPage[] = [
@@ -268,6 +272,12 @@ const MobileNavBar = () => {
 
             {/* Notifications */}
             <NotificationBell />
+            
+            {/* Send Notification (Admin only) */}
+            <SendNotificationDialog />
+            
+            {/* Bulk Notification (Admin only) */}
+            <BulkNotificationDialog />
 
             {/* Profile Avatar */}
             <Link href="/profile">

@@ -11,6 +11,7 @@ import { TUserData, TUpdateData } from "@/hooks/utils/common-types";
 import { validateImageFile } from "@/hooks/utils/common-utils";
 import { Walkthrough, use_page_walkthrough } from "@/components/walk-through-component";
 import { getPageWalkthroughSteps, WalkthroughPage } from "@/types/walkthrough-config";
+import { ConvertTeamDialog } from "@/components/convert-team-dialog";
 
 const Profile = () => {
   const [profile, setProfile] = useState({
@@ -367,6 +368,11 @@ const Profile = () => {
               <Edit3 className="h-4 w-4 mr-2" />
               Edit Profile
             </Button>
+            
+            {/* Convert Team Dialog - Only for admins */}
+            {profile.role === "admin" && profile.teamCode && (
+              <ConvertTeamDialog />
+            )}
             
             <AlertDialog>
               <AlertDialogTrigger asChild>
