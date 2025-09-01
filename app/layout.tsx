@@ -21,6 +21,7 @@ export default function RootLayout({ children }: TRootLayoutProps) {
         
         {/* PWA Manifest */}
         <link rel="manifest" href="/manifest.json" />
+        <link rel="manifest" href="/manifest.webmanifest" />
         
         {/* PWA Icons */}
         <link rel="icon" type="image/png" sizes="32x32" href="/image.png" />
