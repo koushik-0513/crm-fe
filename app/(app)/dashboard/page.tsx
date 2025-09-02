@@ -27,9 +27,11 @@ const Dashboard = () => {
   const dashboardActivitiesByDay = contactData?.activitiesByDay || {};
   const contactsByCompany = contactData?.contactsByCompany || [];
   
-  // Check if user has selected a role
+  // Check if user has selected a role - this is important for security
   useEffect(() => {
     if (!profileLoading && userProfile && !userProfile.role) {
+      // User doesn't have a role, redirect to role selection
+      console.log("User has no role, redirecting to role selection");
       router.push("/auth/role-selection");
     }
   }, [userProfile, profileLoading, router]);

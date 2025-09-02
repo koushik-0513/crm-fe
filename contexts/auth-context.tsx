@@ -94,7 +94,8 @@ export const AuthProvider = ({ children }: TAuthProviderProps) => {
           if (lastSyncedUid.current !== firebaseUser.uid) {
             lastSyncedUid.current = firebaseUser.uid;
             console.log("Syncing user to backend...");
-            await syncUserToBackend(firebaseUser, token);
+            // Don't force redirect on auth state change - let pages handle routing
+            await syncUserToBackend(firebaseUser, token, false);
           }
         } catch (error: unknown) {
           console.error("Error syncing user:", error);
@@ -158,25 +159,21 @@ export const AuthProvider = ({ children }: TAuthProviderProps) => {
         console.log("Force redirect?", forceRedirect);
         console.log("Has completed setup?", data.data?.hasCompletedSetup);
         
-        // Get current path
-        const currentPath = window.location.pathname;
-        const isOnSetupPage = currentPath.includes('/auth/usage-type');
+        // Get current path (SSR-safe)
+        const currentPath = typeof window !== 'undefined' ? window.location.pathname : '';
+        const isOnSetupPage = currentPath.includes('/auth/role-selection');
         const isOnDashboard = currentPath.includes('/dashboard');
         const isOnAuthPage = currentPath.includes('/auth/');
         
         // Handle redirection - only redirect if necessary
         if (forceRedirect) {
           // Only redirect on explicit actions (login, register, Google login)
-          if (isNew) {
-            console.log("Redirecting NEW user to /auth/usage-type");
-            router.push("/auth/usage-type");
-          } else if (data.data?.hasCompletedSetup === false) {
-            // Check if user explicitly hasn't completed setup
-            console.log("User hasn't completed setup, redirecting to /auth/usage-type");
-            router.push("/auth/usage-type");
-          } else {
-            // User has completed setup or backend doesn't track it
-            console.log("Redirecting to /dashboard");
+          if (isNew || !data.data?.user?.role) {
+            console.log("Redirecting NEW user or user without role to /auth/role-selection");
+            router.push("/auth/role-selection");
+          } else if (data.data?.user?.role) {
+            // User already has a role, go directly to dashboard
+            console.log("User already has role:", data.data.user.role, "redirecting to /dashboard");
             router.push("/dashboard");
           }
         } else {
@@ -186,10 +183,14 @@ export const AuthProvider = ({ children }: TAuthProviderProps) => {
           // Only redirect if user is on an auth page (like login/register) but shouldn't be
           if (isOnAuthPage && !isOnSetupPage) {
             // User is on login/register page but is already authenticated
-            if (isNew || data.data?.hasCompletedSetup === false) {
-              router.push("/auth/usage-type");
-            } else {
+            if (data.data?.user?.role) {
+              // User has a role, redirect to dashboard
+              console.log("User has role, redirecting to /dashboard");
               router.push("/dashboard");
+            } else if (isNew || !data.data?.user?.role) {
+              // New user or user without role, redirect to role selection
+              console.log("New user or user without role, redirecting to /auth/role-selection");
+              router.push("/auth/role-selection");
             }
           }
           // If user is already on dashboard or setup page, don't redirect
@@ -204,8 +205,8 @@ export const AuthProvider = ({ children }: TAuthProviderProps) => {
         
         // If backend sync fails but we know it's a new registration, still redirect
         if (isNewRegistration.current) {
-          console.log("Backend sync failed but redirecting new user to /auth/usage-type anyway");
-          router.push("/auth/usage-type");                                
+          console.log("Backend sync failed but redirecting new user to /auth/role-selection anyway");
+          router.push("/auth/role-selection");                                
           isNewRegistration.current = false;
         }
       }
@@ -214,8 +215,8 @@ export const AuthProvider = ({ children }: TAuthProviderProps) => {
       
       // If backend is down but we know it's a new registration, still redirect
       if (isNewRegistration.current) {
-        console.log("Backend error but redirecting new user to /auth/usage-type anyway");
-        router.push("/auth/usage-type");
+        console.log("Backend error but redirecting new user to /auth/role-selection anyway");
+        router.push("/auth/role-selection");
         isNewRegistration.current = false;
       }
     }
@@ -265,10 +266,10 @@ export const AuthProvider = ({ children }: TAuthProviderProps) => {
       
       // Fallback: If syncUserToBackend didn't redirect for some reason, do it here
       setTimeout(() => {
-        if (!window.location.pathname.includes('/auth/usage-type') && 
+        if (!window.location.pathname.includes('/auth/role-selection') && 
             !window.location.pathname.includes('/dashboard')) {
-          console.log("Fallback redirect to /auth/usage-type");
-          router.push("/auth/usage-type");
+          console.log("Fallback redirect to /auth/role-selection");
+          router.push("/auth/role-selection");
         }
       }, 1000);
       

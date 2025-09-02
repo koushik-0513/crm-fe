@@ -36,7 +36,7 @@ export function ConvertTeamDialog() {
 
     setIsLoading(true);
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/convert-team-to-individual`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/convert-team-to-individual`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

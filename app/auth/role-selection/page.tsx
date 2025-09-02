@@ -1,7 +1,9 @@
 "use client";
 import { useState, useEffect } from "react";
 import { useAuth } from "@/contexts/auth-context";
+import { useUserProfile } from "@/hooks/apis/user-service";
 import { useRouter } from "next/navigation";
+import { useQueryClient } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -16,7 +18,7 @@ import { Badge } from "@/components/ui/badge";
 import { Shield, UserCheck, ArrowRight, Building2, Crown, Copy, Check, Users, X } from "lucide-react";
 
 const RoleSelection = () => {
-  const [selectedRole, setSelectedRole] = useState<"admin" | "user" | null>(null);
+  const [selectedRole, setSelectedRole] = useState<"admin" | "user" | "individual" | null>(null);
   const [organizationName, setOrganizationName] = useState("");
   const [teamCode, setTeamCode] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -25,6 +27,8 @@ const RoleSelection = () => {
   const [copied, setCopied] = useState(false);
   const [teamInfo, setTeamInfo] = useState<{ name: string; adminName: string } | null>(null);
   const { user } = useAuth();
+  const { data: userProfile, isLoading: profileLoading } = useUserProfile();
+  const queryClient = useQueryClient();
   const router = useRouter();
 
   console.log("RoleSelection component rendered, user:", user);
@@ -90,6 +94,11 @@ const RoleSelection = () => {
       alert("Please enter a valid team code");
       return;
     }
+
+    // For individual role, no additional fields required
+    if (selectedRole === "individual") {
+      // Individual users don't need team code or organization name
+    }
     
     setIsLoading(true);
     try {
@@ -113,11 +122,17 @@ const RoleSelection = () => {
 
       const data = await response.json();
       
+      // Invalidate user profile query to refresh the data
+      await queryClient.invalidateQueries({ queryKey: ["user-profile"] });
+      
       if (selectedRole === "admin" && data.data?.user?.teamCode) {
         setGeneratedTeamCode(data.data.user.teamCode);
         setShowTeamCode(true);
       } else if (selectedRole === "user") {
         console.log("Team member role updated successfully, redirecting to dashboard");
+        router.push("/dashboard");
+      } else if (selectedRole === "individual") {
+        console.log("Individual role updated successfully, redirecting to dashboard");
         router.push("/dashboard");
       } else {
         console.log("Role updated successfully, redirecting to dashboard");
@@ -173,6 +188,20 @@ const RoleSelection = () => {
       ],
       color: "bg-blue-500",
       badge: "Team Member"
+    },
+    {
+      id: "individual" as const,
+      title: "Individual User",
+      description: "Work independently without a team",
+      icon: UserCheck,
+      features: [
+        "Independent operation",
+        "Contact management",
+        "Personal workspace",
+        "No team dependencies"
+      ],
+      color: "bg-green-500",
+      badge: "Individual"
     }
   ];
 
@@ -388,6 +417,39 @@ const RoleSelection = () => {
               <p className="text-xs text-gray-600 mt-2">
                 Ask your team administrator for the team code to join their organization
               </p>
+            </div>
+          )}
+
+          {/* Individual Role Info */}
+          {selectedRole === "individual" && (
+            <div className="mb-6 p-4 bg-green-50 rounded-lg border border-green-200">
+              <div className="flex items-center space-x-2 text-green-700 mb-3">
+                <UserCheck className="w-4 h-4" />
+                <span className="text-sm font-medium">Individual User Setup</span>
+              </div>
+              <p className="text-xs text-green-600 mb-2">
+                You'll have your own personal workspace with full access to contact management and CRM features.
+              </p>
+              <div className="space-y-2">
+                <div className="flex items-start space-x-2">
+                  <div className="w-2 h-2 bg-green-500 rounded-full mt-2 flex-shrink-0"></div>
+                  <p className="text-xs text-green-600">
+                    Independent contact management
+                  </p>
+                </div>
+                <div className="flex items-start space-x-2">
+                  <div className="w-2 h-2 bg-green-500 rounded-full mt-2 flex-shrink-0"></div>
+                  <p className="text-xs text-green-600">
+                    Personal workspace and settings
+                  </p>
+                </div>
+                <div className="flex items-start space-x-2">
+                  <div className="w-2 h-2 bg-green-500 rounded-full mt-2 flex-shrink-0"></div>
+                  <p className="text-xs text-green-600">
+                    No team dependencies or restrictions
+                  </p>
+                </div>
+              </div>
             </div>
           )}
           

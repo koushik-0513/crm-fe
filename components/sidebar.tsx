@@ -17,6 +17,7 @@ import {
 import { useAuth } from "@/contexts/auth-context";
 import { useUserProfile } from "@/hooks/apis/user-service";
 import { getUserInitials } from "@/hooks/utils/common-utils";
+import { JoinTeamDialog } from "./join-team-dialog";
 
 // Extend Window interface for global functions
 declare global {
@@ -128,6 +129,13 @@ const Sidebar = () => {
             )}
           </Link>
         </div>
+
+        {/* Join Team Section - Only show for users without a team */}
+        {!userProfile?.teamCode && (
+          <div className="mb-4">
+            <JoinTeamDialog />
+          </div>
+        )}
 
         {/* Navigation Menu */}
         <nav className="flex-1 space-y-2" id="wt-sidebar-nav">
