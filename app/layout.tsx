@@ -39,16 +39,16 @@ export default function RootLayout({ children }: TRootLayoutProps) {
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
       </head>
       <body>
-          <AuthProvider>
-            <SocketProvider>
-              <Provider>
+          <Provider>
+            <AuthProvider>
+              <SocketProvider>
                 <Toaster richColors position="top-right"/>
                 {children}
                 <PWAInstallPrompt />
                 <OfflineIndicator />
-              </Provider>
-            </SocketProvider>
-          </AuthProvider>
+              </SocketProvider>
+            </AuthProvider>
+          </Provider>
       </body>
     </html>
   );

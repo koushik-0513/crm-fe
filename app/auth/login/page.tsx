@@ -148,14 +148,7 @@ const Login = () => {
                   Register here
                 </Link>
               </p>
-              <p className="text-xs text-slate-500">
-                <Link
-                  href="/auth/usage-type"
-                  className="text-blue-600 hover:underline"
-                >
-                  Test Usage Type Selection
-                </Link>
-              </p>
+
             </div>
           </form>
         </CardContent>

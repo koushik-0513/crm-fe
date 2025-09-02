@@ -39,7 +39,6 @@ export const config = {
     '/activities/:path*',
     '/tags/:path*',
     '/profile/:path*',
-    '/auth/role-selection',
-    '/auth/usage-type'
+    '/auth/role-selection'
   ]
 }

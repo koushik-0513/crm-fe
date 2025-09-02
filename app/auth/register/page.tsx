@@ -35,9 +35,9 @@ const Register = () => {
     console.log("Register page useEffect - user:", user?.email);
     if (user) {
       console.log("User authenticated in register page:", user.email);
-      // Redirect to usage type selection if user is authenticated
-      console.log("Redirecting to usage type selection...");
-      router.push("/auth/usage-type");
+      // Redirect to role selection if user is authenticated
+      console.log("Redirecting to role selection...");
+      router.push("/auth/role-selection");
     }
   }, [user, router]);
 
@@ -239,7 +239,7 @@ const Register = () => {
               className="w-full"
               onClick={() => {
                 console.log("Test button clicked");
-                router.push("/auth/usage-type");
+                router.push("/auth/role-selection");
               }}
             >
               Test Redirect

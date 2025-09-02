@@ -145,6 +145,12 @@ export const useUserProfile = () => {
   });
 };
 
+// Utility function to invalidate user profile query
+export const invalidateUserProfile = () => {
+  const queryClient = useQueryClient();
+  return queryClient.invalidateQueries({ queryKey: ["user-profile"] });
+};
+
 export const useUpdateUserProfile = () => {
   const queryClient = useQueryClient();
   
