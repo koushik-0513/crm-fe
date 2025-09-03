@@ -11,10 +11,17 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Edit, Trash2 } from "lucide-react";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { MoreHorizontal, Edit, Trash2 } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import type { TContact } from "@/types/global";
+import { getInitials } from "@/hooks/utils/common-utils";
 
 interface ContactsTableProps {
   contacts: TContact[];
@@ -38,95 +45,109 @@ const ContactsTable: React.FC<ContactsTableProps> = ({
   return (
     <Table>
       <TableHeader>
-        <TableRow>
+        <TableRow className="border-border">
           <TableHead className="w-12">
             <Checkbox
               checked={
                 contacts.length > 0 &&
                 selectedContacts.length === contacts.length
               }
+              className="dark:border-1 dark:border-[#81848a]"
               onCheckedChange={onSelectAll}
             />
           </TableHead>
-          <TableHead>Contact</TableHead>
-          <TableHead>Email</TableHead>
-          <TableHead>Company</TableHead>
-          <TableHead>Tags</TableHead>
-          <TableHead>Last Interaction</TableHead>
-          <TableHead className="w-12">Actions</TableHead>
+          <TableHead className="text-muted-foreground font-medium">Contact</TableHead>
+          <TableHead className="text-muted-foreground font-medium">Company</TableHead>
+          <TableHead className="text-muted-foreground font-medium">Tags</TableHead>
+          <TableHead className="text-muted-foreground font-medium">Last Interaction</TableHead>
+          <TableHead className="w-12 text-muted-foreground font-medium">Actions</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
         {contacts.map((contact: TContact) => (
-          <TableRow key={contact._id}>
+          <TableRow key={contact._id} className="border-border hover:bg-muted/50">
             <TableCell>
               <Checkbox
                 checked={selectedContacts.includes(contact._id)}
+                className="dark:border-1 dark:border-[#81848a]"
                 onCheckedChange={(checked) =>
                   onSelectContact(contact._id, Boolean(checked))
                 }
               />
             </TableCell>
             <TableCell>
-              <div className="flex items-center space-x-3">
+              <div className="flex items-center space-x-3 ">
                 <Avatar className="h-8 w-8">
                   <AvatarImage src="/placeholder.svg" />
                   <AvatarFallback className="bg-gradient-to-br from-blue-500 to-purple-600 text-white text-xs">
-                    {contact.avatar}
+                    {contact.avatar || getInitials(contact.name)}
                   </AvatarFallback>
                 </Avatar>
-                <span className="font-medium">
+                <div className="flex flex-col">
                   <Link
                     href={`/contacts/${contact._id}`}
-                    className="hover:underline text-blue-700"
+                    className="font-medium text-foreground hover:underline"
                   >
                     {contact.name}
                   </Link>
-                </span>
+                  <span className="text-sm text-muted-foreground">{contact.email}</span>
+                </div>
               </div>
             </TableCell>
-            <TableCell className="text-slate-600">{contact.email}</TableCell>
-            <TableCell className="text-slate-600">{contact.company}</TableCell>
+            <TableCell className="text-foreground">{contact.company || '-'}</TableCell>
             <TableCell>
               <div className="flex flex-wrap gap-1">
                 {(contact.tags || []).map((tag: string, idx: number) => (
                   <Badge
                     key={idx}
-                    variant="outline"
-                    className="text-xs border-0"
-                    style={{
-                      backgroundColor: tagColorMap[tag] || "#e5e7eb",
-                      color: "#ffffff",
-                    }}
+                    className={`text-xs px-2 py-1 font-medium rounded-sm dark:text-white dark:bg-gray-700 text-black bg-gray-200`}
                   >
                     {tag}
                   </Badge>
                 ))}
               </div>
             </TableCell>
-            <TableCell className="text-slate-500 text-sm">
-              {contact.lastInteraction ? new Date(contact.lastInteraction).toLocaleDateString() : 'N/A'}
+            <TableCell className="text-muted-foreground text-sm">
+              {contact.lastInteraction
+                ? (() => {
+                  const date = new Date(contact.lastInteraction);
+                  const now = new Date();
+                  const diffTime = Math.abs(now.getTime() - date.getTime());
+                  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+                  return `${diffDays} days ago`;
+                })()
+                : 'N/A'
+              }
             </TableCell>
             <TableCell>
-              <div className="flex space-x-1">
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={() => {
-                    router.push(`/contacts/${contact._id}?isedit=true`);
-                  }}
-                >
-                  <Edit className="h-4 w-4" />
-                </Button>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  className="text-red-600 hover:text-red-700"
-                  onClick={() => onDeleteContact(contact._id)}
-                >
-                  <Trash2 className="h-4 w-4" />
-                </Button>
-              </div>
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="h-8 w-8 p-0"
+                  >
+                    <MoreHorizontal className="h-4 w-4 text-muted-foreground" />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end">
+                  <DropdownMenuItem
+                    onClick={() => {
+                      router.push(`/contacts/${contact._id}?isedit=true`);
+                    }}
+                  >
+                    <Edit className="mr-2 h-4 w-4" />
+                    Edit
+                  </DropdownMenuItem>
+                  <DropdownMenuItem
+                    variant="destructive"
+                    onClick={() => onDeleteContact(contact._id)}
+                  >
+                    <Trash2 className="mr-2 h-4 w-4" />
+                    Delete
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
             </TableCell>
           </TableRow>
         ))}

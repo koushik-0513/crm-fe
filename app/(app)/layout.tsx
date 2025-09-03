@@ -19,7 +19,7 @@ export default function DashboardLayout({ children }: TDashboardLayoutProps) {
       <MobileNavBar />
       
       {/* Desktop Layout - Shows on screens xl and larger */}
-      <div className="hidden xl:flex h-screen bg-gradient-to-br from-slate-50 via-blue-50/30 to-purple-50/30 overflow-hidden">
+      <div className="hidden xl:flex h-screen  overflow-hidden">
         <Sidebar />
         <div className="flex-1 flex flex-col h-full">
           <TopBar />
@@ -32,7 +32,7 @@ export default function DashboardLayout({ children }: TDashboardLayoutProps) {
       </div>
       
       {/* Mobile Layout - Shows on screens smaller than xl */}
-      <div className="xl:hidden min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/30 to-purple-50/30">
+      <div className="xl:hidden min-h-screen">
         <main className="flex-1 p-4 overflow-auto">
           <Toaster richColors position="top-right" />
           {children}

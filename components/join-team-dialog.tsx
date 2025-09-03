@@ -114,7 +114,7 @@ export function JoinTeamDialog() {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant="outline" className="flex items-center space-x-2">
+        <Button variant="outline" className="flex items-center space-x-2 w-full border-sidebar-border text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground">
           <Users className="w-4 h-4" />
           <span>Join Team</span>
         </Button>
@@ -129,10 +129,10 @@ export function JoinTeamDialog() {
             Enter the team code provided by your administrator to join their organization.
           </DialogDescription>
         </DialogHeader>
-        
+
         <div className="space-y-4">
           <div className="space-y-2">
-            <label htmlFor="teamCode" className="text-sm font-medium text-gray-700">
+            <label htmlFor="teamCode" className="text-sm font-medium text-foreground">
               Team Code *
             </label>
             <Input
@@ -145,7 +145,7 @@ export function JoinTeamDialog() {
               maxLength={6}
               required
             />
-            <p className="text-xs text-gray-500 text-center">
+            <p className="text-xs text-muted-foreground text-center">
               Team codes are 6 characters long (letters and numbers)
             </p>
           </div>
@@ -162,24 +162,24 @@ export function JoinTeamDialog() {
           )}
 
           {teamInfo && (
-            <div className="p-3 bg-green-50 rounded-lg border border-green-200">
-              <div className="flex items-center space-x-2 text-green-700">
+            <div className="p-3 bg-green-50 dark:bg-green-950 rounded-lg border border-green-200 dark:border-green-800">
+              <div className="flex items-center space-x-2 text-green-700 dark:text-green-300">
                 <Check className="w-4 h-4" />
                 <span className="text-sm font-medium">Valid team code!</span>
               </div>
-              <p className="text-xs text-green-600 mt-1">
+              <p className="text-xs text-green-600 dark:text-green-400 mt-1">
                 Team: {teamInfo.name} | Admin: {teamInfo.adminName}
               </p>
             </div>
           )}
 
           {teamCode && !teamInfo && teamCode.length >= 6 && (
-            <div className="p-3 bg-red-50 rounded-lg border border-red-200">
-              <div className="flex items-center space-x-2 text-red-700">
+            <div className="p-3 bg-red-50 dark:bg-red-950 rounded-lg border border-red-200 dark:border-red-800">
+              <div className="flex items-center space-x-2 text-red-700 dark:text-red-300">
                 <X className="w-4 h-4" />
                 <span className="text-sm font-medium">Invalid team code</span>
               </div>
-              <p className="text-xs text-red-600 mt-1">
+              <p className="text-xs text-red-600 dark:text-red-400 mt-1">
                 Please check the code and try again
               </p>
             </div>

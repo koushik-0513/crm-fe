@@ -74,16 +74,15 @@ const Sidebar = () => {
 
   return (
     <div
-      className={`sidebar-modern transition-all duration-300 ${
-        collapsed ? "w-20" : "w-64"
-      } flex flex-col h-screen rounded-r-2xl m-2 mr-0`}
+      className={`bg-sidebar border-sidebar-border border-r transition-all duration-300 ${collapsed ? "w-20" : "w-64"
+        } flex flex-col h-screen mr-0`}
     >
-      <div className="flex flex-col flex-1 min-h-0 p-4">
+      <div className="flex flex-col flex-1 min-h-0 p-4 dark:border-r-1 dark:border-[#6a7382]">
         {/* Header */}
         <div className="mb-6">
           <div className="flex items-center justify-between">
             {!collapsed && (
-              <h2 className="text-xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent text-modern">
+              <h2 className="text-xl font-bold text-sidebar-foreground text-modern">
                 CRM Pro
               </h2>
             )}
@@ -91,7 +90,7 @@ const Sidebar = () => {
               variant="ghost"
               size="sm"
               onClick={() => setCollapsed(!collapsed)}
-              className="p-2 h-8 w-8 rounded-full hover:bg-slate-100/80"
+              className="p-2 h-8 w-8 rounded-full hover:bg-sidebar-accent"
             >
               {collapsed ? (
                 <ChevronRight className="h-4 w-4" />
@@ -103,26 +102,26 @@ const Sidebar = () => {
         </div>
 
         {/* User Profile Section */}
-        <div className="mb-6 border-black-500 border-2 rounded-xl" id="wt-profile-nav-link">
+        <div className={`mb-6 border-sidebar-border border rounded-xl hover:bg-sidebar-accent/50 ${collapsed && 'border-0 hover:bg-white'}`} id="wt-profile-nav-link">
           <Link
             href="/profile"
-            className="flex items-center space-x-3 hover:bg-slate-100/80 p-3 rounded-xl transition-all duration-300 group"
+            className="flex items-center space-x-3 p-3 rounded-xl transition-all duration-300 group"
           >
-            <Avatar className="h-10 w-10 ring-2 ring-slate-200 group-hover:ring-purple-200 transition-all duration-300">
-              <AvatarImage 
+            <Avatar className="h-10 w-10 ring-sidebar-border transition-all duration-300">
+              <AvatarImage
                 src={userProfile?.photoUrl ? `${userProfile.photoUrl}?v=${new Date().getTime()}` : undefined}
                 alt="Profile Avatar"
               />
-              <AvatarFallback className="bg-gradient-to-br from-purple-500 to-blue-600 text-white text-sm font-medium">
+              <AvatarFallback className="bg-sidebar-primary text-sidebar-primary-foreground text-sm font-medium">
                 {getUserInitialsForAvatar()}
               </AvatarFallback>
             </Avatar>
             {!collapsed && (
               <div className="flex-1 min-w-0">
-                <p className="text-sm font-medium text-slate-800 truncate text-modern">
+                <p className="text-sm font-medium text-sidebar-accent-foreground truncate text-modern">
                   {userProfile?.name || user?.displayName || "User"}
                 </p>
-                <p className="text-xs text-slate-500 truncate text-modern-light">
+                <p className="text-xs text-sidebar-accent-foreground/70 truncate text-modern-light">
                   {userProfile?.email || user?.email || "user@example.com"}
                 </p>
               </div>
@@ -131,57 +130,56 @@ const Sidebar = () => {
         </div>
 
         {/* Join Team Section - Only show for users without a team */}
-        {!userProfile?.teamCode && (
+        {/* {!userProfile?.teamCode && (
           <div className="mb-4">
             <JoinTeamDialog />
           </div>
-        )}
+        )} */}
 
         {/* Navigation Menu */}
-        <nav className="flex-1 space-y-2" id="wt-sidebar-nav">
-          {menuItems.map((item) => {
-            const isActive = pathname === item.path;
-            return (
-              <Link
-                key={item.path}
-                href={item.path}
-                className={`flex items-center space-x-3 px-4 py-3 rounded-xl transition-all duration-300 group ${
-                  isActive
-                    ? "bg-gradient-to-r from-purple-50 to-blue-50 text-purple-700 border border-purple-200/50 shadow-sm"
-                    : "text-slate-600 hover:bg-slate-100/80 hover:text-slate-800 hover:shadow-sm"
-                }`}
-                id={item.id}
-              >
-                <item.icon
-                  className={`h-5 w-5 transition-all duration-300 ${
-                    isActive ? "text-purple-600" : "group-hover:text-slate-700"
-                  }`}
-                />
-                {!collapsed && (
-                  <span className={`font-medium text-modern ${
-                    isActive ? "text-purple-700" : "text-slate-700"
-                  }`}>
-                    {item.label}
-                  </span>
-                )}
-              </Link>
-            );
-          })}
+        <nav className="flex-1 flex flex-col space-y-2 justify-between h-full" id="wt-sidebar-nav">
+          <div className="flex flex-col space-y-2">
+            {menuItems.map((item) => {
+              const isActive = pathname === item.path;
+              return (
+                <Link
+                  key={item.path}
+                  href={item.path}
+                  className={`flex items-center space-x-3 px-4 py-3 transition-all duration-300 group rounded-sm ${isActive
+                    ? "dark:bg-[#171717] text-sidebar-accent-foreground border border-sidebar-border"
+                    : "text-sidebar-foreground hover:bg-sidebar-accent/50 hover:text-sidebar-accent-foreground hover:shadow-sm dark:hover:bg-[#2a2a2a]"
+                    }`}
+                  id={item.id}
+                >
+                  <item.icon
+                    className={`h-5 w-5 transition-all duration-300 ${isActive ? "text-sidebar-accent-foreground" : "group-hover:text-sidebar-accent-foreground"
+                      }`}
+                  />
+                  {!collapsed && (
+                    <span className={`font-medium text-modern ${isActive ? "text-sidebar-accent-foreground" : "text-sidebar-foreground"
+                      }`}>
+                      {item.label}
+                    </span>
+                  )}
+                </Link>
+              );
+            })}
+          </div>
+          <Button
+            variant="ghost"
+            onClick={logout}
+            className={`w-full justify-start text-sidebar-foreground hover:text-destructive hover:bg-destructive/10 rounded-xl transition-all duration-300 ${collapsed ? "px-0" : ""
+              }`}
+          >
+            <LogOut className="h-5 w-5" />
+            {!collapsed && <span className="ml-3 text-modern">Logout</span>}
+          </Button>
         </nav>
       </div>
 
       {/* Logout Button */}
       <div className="p-4">
-        <Button
-          variant="ghost"
-          onClick={logout}
-          className={`w-full justify-start text-slate-600 hover:text-red-600 hover:bg-red-50/80 rounded-xl transition-all duration-300 ${
-            collapsed ? "px-0" : ""
-          }`}
-        >
-          <LogOut className="h-5 w-5" />
-          {!collapsed && <span className="ml-3 text-modern">Logout</span>}
-        </Button>
+
       </div>
     </div>
   );

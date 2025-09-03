@@ -3,10 +3,10 @@
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { 
-  Button, 
-  Avatar, 
-  AvatarFallback, 
+import {
+  Button,
+  Avatar,
+  AvatarFallback,
   AvatarImage,
   Input,
   Sheet,
@@ -50,16 +50,16 @@ const MobileNavBar = () => {
   const [results, setResults] = useState<SearchResults>({ pages: [], data: {} });
   const [showDropdown, setShowDropdown] = useState<boolean>(false);
   const [refreshTrigger, setRefreshTrigger] = useState(0);
-  
+
   const pathname = usePathname();
   const router = useRouter();
   const { logout, user } = useAuth();
   const searchRef = useRef<HTMLDivElement>(null);
   const { reset_all_walkthroughs } = use_reset_all_walkthroughs();
-  
+
   // Use TanStack Query hook for profile data
   const { data: userProfile, isLoading: loading } = useUserProfile();
-  
+
   const debouncedQuery = useDebounce({ value: query, delay: 300 });
   const { data: searchData, isLoading: searchLoading } = useSearch(debouncedQuery);
 
@@ -160,7 +160,7 @@ const MobileNavBar = () => {
   return (
     <>
       {/* Mobile Navigation Bar - Always present but styled for mobile */}
-      <nav className="xl:hidden fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm border-b border-slate-200/50 shadow-sm">
+      <nav className="xl:hidden fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-sm border-b shadow-sm">
         <div className="flex items-center justify-between px-4 py-3">
           {/* Left section: Hamburger and Logo */}
           <div className="flex items-center gap-3">
@@ -176,32 +176,32 @@ const MobileNavBar = () => {
               </SheetTrigger>
               <SheetContent side="left" className="w-72 p-0">
                 <SheetHeader className="p-4 border-b">
-                  <SheetTitle className="text-xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+                  <SheetTitle className="text-xl font-bold text-primary">
                     CRM Pro
                   </SheetTitle>
                 </SheetHeader>
-                
+
                 {/* Profile Section in Menu */}
                 <div className="p-4 border-b">
                   <Link
                     href="/profile"
                     onClick={() => setMobileMenuOpen(false)}
-                    className="flex items-center space-x-3 hover:bg-slate-100/80 p-3 rounded-xl transition-all duration-300"
+                    className="flex items-center space-x-3 hover:bg-accent p-3 rounded-xl transition-all duration-300"
                   >
-                    <Avatar className="h-10 w-10 ring-2 ring-slate-200">
-                      <AvatarImage 
+                    <Avatar className="h-10 w-10 ring-2 ring-border">
+                      <AvatarImage
                         src={userProfile?.photoUrl ? `${userProfile.photoUrl}?v=${new Date().getTime()}` : undefined}
                         alt="Profile Avatar"
                       />
-                      <AvatarFallback className="bg-gradient-to-br from-purple-500 to-blue-600 text-white text-sm font-medium">
+                      <AvatarFallback className="bg-primary text-primary-foreground text-sm font-medium">
                         {getUserInitialsForAvatar()}
                       </AvatarFallback>
                     </Avatar>
                     <div className="flex-1 min-w-0">
-                      <p className="text-sm font-medium text-slate-800 truncate">
+                      <p className="text-sm font-medium text-foreground truncate">
                         {userProfile?.name || user?.displayName || "User"}
                       </p>
-                      <p className="text-xs text-slate-500 truncate">
+                      <p className="text-xs text-muted-foreground truncate">
                         {userProfile?.email || user?.email || "user@example.com"}
                       </p>
                     </div>
@@ -216,22 +216,21 @@ const MobileNavBar = () => {
                       <button
                         key={item.path}
                         onClick={() => handleNavigation(item.path)}
-                        className={`w-full flex items-center space-x-3 px-4 py-3 rounded-xl transition-all duration-300 ${
-                          isActive
-                            ? "bg-gradient-to-r from-purple-50 to-blue-50 text-purple-700 border border-purple-200/50"
-                            : "text-slate-600 hover:bg-slate-100/80 hover:text-slate-800"
-                        }`}
+                        className={`w-full flex items-center space-x-3 px-4 py-3 rounded-xl transition-all duration-300 ${isActive
+                          ? "bg-accent text-accent-foreground border border-border"
+                          : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
+                          }`}
                       >
-                        <item.icon className={`h-5 w-5 ${isActive ? "text-purple-600" : ""}`} />
+                        <item.icon className={`h-5 w-5 ${isActive ? "text-primary" : ""}`} />
                         <span className="font-medium">{item.label}</span>
                       </button>
                     );
                   })}
-                  
+
                   {/* Restart Tour Button */}
                   <button
                     onClick={handleRestartWalkthrough}
-                    className="w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-slate-600 hover:bg-slate-100/80 hover:text-slate-800 transition-all duration-300"
+                    className="w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-all duration-300"
                   >
                     <RotateCcw className="h-5 w-5" />
                     <span className="font-medium">Restart Tour</span>
@@ -243,7 +242,7 @@ const MobileNavBar = () => {
                   <Button
                     variant="ghost"
                     onClick={handleLogout}
-                    className="w-full justify-start text-slate-600 hover:text-red-600 hover:bg-red-50/80 rounded-xl transition-all duration-300"
+                    className="w-full justify-start text-muted-foreground hover:text-destructive hover:bg-destructive/10 rounded-xl transition-all duration-300"
                   >
                     <LogOut className="h-5 w-5" />
                     <span className="ml-3">Logout</span>
@@ -251,8 +250,8 @@ const MobileNavBar = () => {
                 </div>
               </SheetContent>
             </Sheet>
-            
-            <h2 className="text-lg font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+
+            <h2 className="text-lg font-bold text-foreground">
               CRM Pro
             </h2>
           </div>
@@ -271,20 +270,20 @@ const MobileNavBar = () => {
 
             {/* Notifications */}
             <NotificationBell />
-            
+
             {/* Send Notification (Admin only) */}
             <SendNotificationDialog />
-            
+
             {/* Bulk Notification (Admin only) */}
 
             {/* Profile Avatar */}
             <Link href="/profile">
-              <Avatar className="h-8 w-8 ring-2 ring-slate-200 cursor-pointer">
-                <AvatarImage 
+              <Avatar className="h-8 w-8 ring-2 ring-border cursor-pointer">
+                <AvatarImage
                   src={userProfile?.photoUrl ? `${userProfile.photoUrl}?v=${new Date().getTime()}` : undefined}
                   alt="Profile Avatar"
                 />
-                <AvatarFallback className="bg-gradient-to-br from-purple-500 to-blue-600 text-white text-xs font-medium">
+                <AvatarFallback className="bg-primary text-primary-foreground text-xs font-medium">
                   {getUserInitialsForAvatar()}
                 </AvatarFallback>
               </Avatar>
@@ -296,34 +295,34 @@ const MobileNavBar = () => {
         {searchOpen && (
           <div className="px-4 pb-3">
             <div className="relative" ref={searchRef}>
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-slate-400" />
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
               {searchLoading && debouncedQuery && (
                 <div className="absolute right-3 top-1/2 transform -translate-y-1/2">
-                  <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-purple-500"></div>
+                  <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-primary"></div>
                 </div>
               )}
               <Input
                 placeholder="Search contacts, activities..."
-                className={`pl-10 ${searchLoading && debouncedQuery ? 'pr-10' : ''} bg-slate-50/80 border-slate-200/50 focus:bg-white focus:border-purple-300 rounded-xl transition-all duration-300`}
+                className={`pl-10 ${searchLoading && debouncedQuery ? 'pr-10' : ''} rounded-xl transition-all duration-300`}
                 value={query}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => setQuery(e.target.value)}
                 onFocus={() => query && setShowDropdown(true)}
                 autoFocus
               />
-              
+
               {/* Search Dropdown */}
               {showDropdown && (
-                <div className="absolute top-12 left-0 right-0 bg-white/95 backdrop-blur-sm border border-slate-200/50 rounded-2xl shadow-xl z-50 max-h-60 overflow-y-auto">
+                <div className="absolute top-12 left-0 right-0 bg-background/95 backdrop-blur-sm border rounded-2xl shadow-xl z-50 max-h-60 overflow-y-auto">
                   {/* Pages */}
                   {filteredPages.length > 0 && (
                     <div>
-                      <div className="px-4 py-2 text-sm font-semibold text-slate-700 border-b border-slate-100">
+                      <div className="px-4 py-2 text-sm font-semibold text-foreground border-b border-border">
                         Pages
                       </div>
                       {filteredPages.map((page) => (
                         <div
                           key={page.path}
-                          className="px-4 py-3 cursor-pointer hover:bg-slate-50/80 transition-colors duration-200"
+                          className="px-4 py-3 cursor-pointer hover:bg-accent transition-colors duration-200"
                           onClick={() => {
                             router.push(page.path);
                             setSearchOpen(false);
@@ -335,18 +334,18 @@ const MobileNavBar = () => {
                       ))}
                     </div>
                   )}
-                  
+
                   {/* Search Results */}
                   {Object.entries(results.data).map(([type, items]) =>
                     Array.isArray(items) && items.length > 0 ? (
                       <div key={type}>
-                        <div className="px-4 py-2 text-sm font-semibold text-slate-700 border-b border-slate-100">
+                        <div className="px-4 py-2 text-sm font-semibold text-foreground border-b border-border">
                           {type.charAt(0).toUpperCase() + type.slice(1)}
                         </div>
                         {items.map((item: any) => (
                           <div
                             key={item.id || item._id}
-                            className="px-4 py-3 cursor-pointer hover:bg-slate-50/80 transition-colors duration-200"
+                            className="px-4 py-3 cursor-pointer hover:bg-accent transition-colors duration-200"
                             onClick={() => {
                               if (type === "contacts")
                                 router.push(`/contacts/${item.id || item._id}`);
@@ -363,10 +362,10 @@ const MobileNavBar = () => {
                       </div>
                     ) : null
                   )}
-                  
+
                   {/* Loading/No Results */}
                   {searchLoading && debouncedQuery && (
-                    <div className="px-4 py-3 text-slate-500 text-center">
+                    <div className="px-4 py-3 text-muted-foreground text-center">
                       Searching...
                     </div>
                   )}
@@ -374,7 +373,7 @@ const MobileNavBar = () => {
                     Object.values(results.data).every(
                       (arr) => Array.isArray(arr) && arr.length === 0
                     ) && query && (
-                      <div className="px-4 py-3 text-slate-500">
+                      <div className="px-4 py-3 text-muted-foreground">
                         No results found.
                       </div>
                     )}
