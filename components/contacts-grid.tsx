@@ -110,7 +110,7 @@ const ContactsGrid: React.FC<ContactsGridProps> = ({
                     <Badge
                       key={idx}
                       variant="secondary"
-                      className="text-xs px-2 py-1 font-medium rounded-sm dark:text-white dark:bg-gray-700 text-black bg-gray-200"
+                      className="text-xs px-2 py-1 font-medium rounded-sm bg-muted text-muted-foreground hover:bg-muted/80"
                     >
                       {tag}
                     </Badge>

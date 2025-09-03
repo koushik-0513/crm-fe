@@ -54,7 +54,7 @@ const ContactFormDialog: React.FC<ContactFormDialogProps> = ({
     const { name, value } = e.target;
     setContactForm((prev) => ({
       ...prev,
-      [name]: name === "tags" 
+      [name]: name === "tags"
         ? value.split(",").map(tag => tag.trim()).filter(tag => tag.length > 0)
         : value,
     }));
@@ -153,7 +153,7 @@ const ContactFormDialog: React.FC<ContactFormDialogProps> = ({
                 {tags.map((tag: TTag) => (
                   <div
                     key={tag._id}
-                    className="flex items-center space-x-2 px-2 py-1"
+                    className="flex items-center space-x-2 px-2 py-1 hover:bg-accent/50 rounded-sm transition-colors dark:border-[#343434]"
                   >
                     <Checkbox
                       id={`tag-${tag._id}`}
@@ -161,10 +161,11 @@ const ContactFormDialog: React.FC<ContactFormDialogProps> = ({
                       onCheckedChange={(checked) =>
                         handleTagCheckbox(tag.name, Boolean(checked))
                       }
+                      className="dark:border-[#343434]"
                     />
                     <label
                       htmlFor={`tag-${tag._id}`}
-                      className="text-sm cursor-pointer"
+                      className="text-sm cursor-pointer text-foreground flex-1 select-none"
                     >
                       {tag.name}
                     </label>
@@ -194,11 +195,12 @@ const ContactFormDialog: React.FC<ContactFormDialogProps> = ({
             <Button
               variant="outline"
               onClick={() => onOpenChange(false)}
+              className="dark:border-[#343434] dark:bg-[#171717]"
             >
               Cancel
             </Button>
             <Button
-              className="bg-gradient-to-r from-blue-600 to-purple-600"
+              className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white border-0"
               type="submit"
               disabled={createContactMutation.isPending}
             >

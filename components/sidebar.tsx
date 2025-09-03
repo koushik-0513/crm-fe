@@ -77,7 +77,7 @@ const Sidebar = () => {
       className={`bg-sidebar border-sidebar-border border-r transition-all duration-300 ${collapsed ? "w-20" : "w-64"
         } flex flex-col h-screen mr-0`}
     >
-      <div className="flex flex-col flex-1 min-h-0 p-4 dark:border-r-1 dark:border-[#6a7382]">
+      <div className="flex flex-col flex-1 min-h-0 p-4 dark:border-r-1 dark:border-[#343434]">
         {/* Header */}
         <div className="mb-6">
           <div className="flex items-center justify-between">

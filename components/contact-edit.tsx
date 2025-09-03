@@ -78,7 +78,7 @@ export default function EditContactDialog({
             </Button>
             <Button
               type="submit"
-              className="bg-gradient-to-r from-blue-600 to-purple-600"
+              className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white border-0"
               disabled={isUpdating}
             >
               {isUpdating ? 'Saving...' : 'Save Changes'}

@@ -152,8 +152,8 @@ const CsvImportDialog: React.FC<CsvImportDialogProps> = ({
         tags: csvRow.tags
           ? csvRow.tags.split(",").map((t: string) => t.trim())
           : csvRow.Tags
-          ? csvRow.Tags.split(",").map((t: string) => t.trim())
-          : [],
+            ? csvRow.Tags.split(",").map((t: string) => t.trim())
+            : [],
         note: csvRow.note || csvRow.Note || "",
       });
     }
@@ -175,25 +175,27 @@ const CsvImportDialog: React.FC<CsvImportDialogProps> = ({
           {/* Drag-and-drop area */}
           <div
             {...getRootProps()}
-            className={`border-2 border-dashed rounded p-6 text-center cursor-pointer transition-colors ${
-              isDragActive
-                ? "border-blue-500 bg-blue-50"
-                : "border-slate-300 bg-slate-50"
-            }`}
+            className={`border-2 border-dashed rounded p-6 text-center cursor-pointer transition-colors dark:border-[#343434] dark:bg-[#171717] ${isDragActive
+              ? "border-blue-500 bg-blue-50 dark:bg-blue-950/20 dark:border-blue-400"
+              : "border-border bg-muted/50 hover:bg-muted/80 dark:border-border dark:bg-muted/30"
+              }`}
           >
             <input {...getInputProps()} />
             {isDragActive ? (
-              <p className="text-blue-700">Drop the CSV file here ...</p>
+              <p className="text-blue-700 dark:text-blue-300">Drop the CSV file here ...</p>
             ) : (
-              <p>
-                Drag & drop a CSV file here, or{" "}
-                <span className="underline text-blue-700">
-                  click to select
-                </span>
-              </p>
+              <div className="space-y-2">
+                <Upload className="mx-auto h-8 w-8 text-muted-foreground" />
+                <p className="text-foreground">
+                  Drag & drop a CSV file here, or{" "}
+                  <span className="underline text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300">
+                    click to select
+                  </span>
+                </p>
+              </div>
             )}
             {csvFile && (
-              <p className="mt-2 text-xs text-slate-500">
+              <p className="mt-2 text-xs text-muted-foreground">
                 Selected file: {csvFile.name}
               </p>
             )}
@@ -201,7 +203,7 @@ const CsvImportDialog: React.FC<CsvImportDialogProps> = ({
 
           {/* Error display */}
           {csvErrors.length > 0 && (
-            <div className="bg-red-50 border border-red-200 text-red-700 rounded p-2 text-sm space-y-1">
+            <div className="bg-red-50 dark:bg-red-950/20 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-300 rounded p-2 text-sm space-y-1">
               {csvErrors.map((err, idx) => (
                 <div key={idx}>Row {err.row}: {err.message}</div>
               ))}
@@ -210,35 +212,28 @@ const CsvImportDialog: React.FC<CsvImportDialogProps> = ({
 
           {/* Table preview */}
           {csvContacts.length > 0 && (
-            <div className="max-h-60 overflow-y-scroll border rounded p-2 bg-slate-50">
+            <div className="max-h-60 overflow-y-scroll border border-border rounded p-2 bg-muted/30 dark:bg-muted/10">
               <Table>
                 <TableHeader>
-                  <TableRow>
-                    <TableHead>Name</TableHead>
-                    <TableHead>Email</TableHead>
-                    <TableHead>Phone</TableHead>
-                    <TableHead>Company</TableHead>
-                    <TableHead>Tags</TableHead>
-                    <TableHead>Note</TableHead>
+                  <TableRow className="border-border">
+                    <TableHead className="text-muted-foreground font-medium">Name</TableHead>
+                    <TableHead className="text-muted-foreground font-medium">Email</TableHead>
+                    <TableHead className="text-muted-foreground font-medium">Phone</TableHead>
+                    <TableHead className="text-muted-foreground font-medium">Company</TableHead>
+                    <TableHead className="text-muted-foreground font-medium">Tags</TableHead>
+                    <TableHead className="text-muted-foreground font-medium">Note</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
                   {csvContacts.map((c, idx) => (
-                    <TableRow key={idx}>
-                      <TableCell>{c.name}</TableCell>
-                      <TableCell>{c.email}</TableCell>
-                      <TableCell>{c.phone}</TableCell>
-                      <TableCell>{c.company}</TableCell>
-                      <TableCell>{Array.isArray(c.tags) ? c.tags.join(", ") : ""}</TableCell>
+                    <TableRow key={idx} className="border-border hover:bg-muted/50">
+                      <TableCell className="text-foreground font-medium">{c.name}</TableCell>
+                      <TableCell className="text-muted-foreground">{c.email}</TableCell>
+                      <TableCell className="text-muted-foreground">{c.phone}</TableCell>
+                      <TableCell className="text-foreground">{c.company}</TableCell>
+                      <TableCell className="text-muted-foreground">{Array.isArray(c.tags) ? c.tags.join(", ") : ""}</TableCell>
                       <TableCell
-                        className=""
-                        style={{
-                          maxWidth: "200px",
-                          whiteSpace: "nowrap",
-                          overflow: "hidden",
-                          textOverflow: "ellipsis",
-                          cursor: "pointer",
-                        }}
+                        className="text-muted-foreground max-w-[200px] truncate cursor-pointer"
                         title={c.note}
                       >
                         {c.note}
@@ -254,11 +249,12 @@ const CsvImportDialog: React.FC<CsvImportDialogProps> = ({
             <Button
               variant="outline"
               onClick={() => onOpenChange(false)}
+              className="dark:border-[#343434] dark:bg-[#171717]"
             >
               Cancel
             </Button>
             <Button
-              className="bg-gradient-to-r from-blue-600 to-purple-600"
+              className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white border-0"
               onClick={handleSaveCsvContacts}
               disabled={csvContacts.length === 0 || importing}
             >
