@@ -171,7 +171,7 @@ const Activities = () => {
     };
 
     return (
-      <div className="bg-card border border-border rounded-lg p-5 hover:bg-accent/30 transition-all duration-200  dark:border-gray-700">
+      <div className="bg-card border border-border rounded-lg p-5 hover:bg-accent/30 transition-all duration-200  dark:border-[#343434]">
         <div className="flex items-start gap-4">
           {/* Activity Icon */}
           <div className="flex-shrink-0">
@@ -262,7 +262,7 @@ const Activities = () => {
             <Button
               variant="outline"
               onClick={() => setShowDatePicker((v) => !v)}
-              className="bg-background border-border text-foreground hover:bg-accent hover:text-accent-foreground dark:border-gray-700"
+              className="bg-background border-border text-foreground hover:bg-accent hover:text-accent-foreground dark:border-[#343434]"
               id="wt-activities-date-range"
             >
               <Calendar className="h-4 w-4 mr-2" />
@@ -273,7 +273,7 @@ const Activities = () => {
               )}
             </Button>
             {showDatePicker && (
-              <div className="absolute z-50 mt-2 bg-popover border border-border rounded-lg shadow-lg p-4 date-picker-container dark:border-gray-700">
+              <div className="absolute z-50 mt-2 bg-popover border border-border rounded-lg shadow-lg p-4 date-picker-container dark:border-[#343434]">
                 <div className="mb-2 font-semibold text-sm text-popover-foreground">
                   Select Date Range
                 </div>
@@ -315,7 +315,7 @@ const Activities = () => {
             <Button
               variant="outline"
               onClick={() => setShowFilters((v) => !v)}
-              className="bg-background border-border text-foreground hover:bg-accent hover:text-accent-foreground dark:border-gray-700 "
+              className="bg-background border-border text-foreground hover:bg-accent hover:text-accent-foreground dark:border-[#343434] "
               id="wt-activities-filter"
             >
               <Filter className="h-4 w-4 mr-2" />
@@ -354,7 +354,7 @@ const Activities = () => {
               ]);
               setSelectedActivityType("all");
             }}
-            className="bg-background border-border text-foreground hover:bg-accent hover:text-accent-foreground dark:border-gray-700"
+            className="bg-background border-border text-foreground hover:bg-accent hover:text-accent-foreground dark:border-[#343434]"
             id="wt-activities-clear-filters"
           >
             Clear Filters

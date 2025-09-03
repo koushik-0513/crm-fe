@@ -276,7 +276,7 @@ const Tags = () => {
           tags.map((tag: TTag) => (
             <div
               key={tag._id}
-              className="group relative bg-white dark:bg-[#171717] border border-gray-200 dark:border-gray-700 rounded-2xl p-6 hover:shadow-lg dark:hover:shadow-gray-900/20 transition-all duration-200 hover:scale-[1.02] shadow-sm"
+              className="group relative bg-white dark:bg-[#171717] border border-gray-200 dark:border-[#343434] rounded-2xl p-6 hover:shadow-lg dark:hover:shadow-gray-900/20 transition-all duration-200 hover:scale-[1.02] shadow-sm"
               id="wt-tag-actions"
             >
               {/* Tag Color Badge */}

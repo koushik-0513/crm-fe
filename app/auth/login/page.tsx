@@ -17,7 +17,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Eye, EyeOff } from "lucide-react";
 import { sendPasswordResetEmail } from "firebase/auth";
 import { toast } from "sonner";
-import { auth } from "@/firebase"; 
+import { auth } from "@/firebase";
 
 const Login = () => {
   const { login, loginWithGoogle } = useAuth();
@@ -43,7 +43,7 @@ const Login = () => {
       toast.success("Logged in with Google successfully!");
     } catch (err: unknown) {
       const errorMessage = err instanceof Error ? err.message : String(err)
-      toast.error(errorMessage); 
+      toast.error(errorMessage);
     }
   };
 
@@ -58,8 +58,8 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 flex items-center justify-center p-4">
-      <Card className="w-full max-w-md shadow-xl border-0 bg-white/80 backdrop-blur">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 flex items-center justify-center p-4">
+      <Card className="w-full max-w-md shadow-xl border-0 bg-white/80 dark:bg-gray-800/90 backdrop-blur">
         <CardHeader className="text-center">
           <div className="mx-auto w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center mb-4">
             <span className="text-white font-bold text-xl">C</span>
@@ -67,7 +67,7 @@ const Login = () => {
           <CardTitle className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
             Welcome Back
           </CardTitle>
-          <CardDescription>Sign in to your CRM account</CardDescription>
+          <CardDescription className="text-muted-foreground">Sign in to your CRM account</CardDescription>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleLogin} className="space-y-4">
@@ -80,7 +80,7 @@ const Login = () => {
                 value={email}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
                 required
-                className="bg-white/50 border-slate-200"
+                className="bg-background/50 border-input"
               />
             </div>
             <div className="space-y-2">
@@ -93,7 +93,7 @@ const Login = () => {
                   value={password}
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
                   required
-                  className="bg-white/50 border-slate-200 pr-10"
+                  className="bg-background/50 border-input pr-10"
                 />
                 <Button
                   type="button"
@@ -104,29 +104,29 @@ const Login = () => {
                   tabIndex={-1}
                 >
                   {showPassword ? (
-                    <EyeOff className="h-4 w-4 text-slate-400" />
+                    <EyeOff className="h-4 w-4 text-muted-foreground" />
                   ) : (
-                    <Eye className="h-4 w-4 text-slate-400" />
+                    <Eye className="h-4 w-4 text-muted-foreground" />
                   )}
                 </Button>
               </div>
             </div>
             <div className="flex items-center space-x-2">
               <Checkbox id="remember" />
-              <Label htmlFor="remember" className="text-sm text-slate-600">
+              <Label htmlFor="remember" className="text-sm text-muted-foreground">
                 Remember me
               </Label>
             </div>
             <Button
               type="submit"
-              className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
+              className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white border-0"
             >
               Sign In
             </Button>
             <Button
               type="button"
               variant="outline"
-              className="w-full"
+              className="w-full dark:border-[#343434] dark:bg-[#171717]"
               onClick={handleGoogleLogin}
             >
               Continue with Google
@@ -134,16 +134,16 @@ const Login = () => {
             <div className="text-center space-y-2">
               <Link
                 href="#"
-                className="text-sm text-blue-600 hover:underline"
-                onClick = {handleResetPassword}
+                className="text-sm text-blue-600 dark:text-blue-400 hover:underline"
+                onClick={handleResetPassword}
               >
                 Forgot your password?
               </Link>
-              <p className="text-sm text-slate-600">
+              <p className="text-sm text-muted-foreground">
                 Don't have an account?{" "}
                 <Link
                   href="/auth/register"
-                  className="text-blue-600 hover:underline font-medium"
+                  className="text-blue-600 dark:text-blue-400 hover:underline font-medium"
                 >
                   Register here
                 </Link>

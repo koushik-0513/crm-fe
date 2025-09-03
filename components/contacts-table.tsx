@@ -52,7 +52,7 @@ const ContactsTable: React.FC<ContactsTableProps> = ({
                 contacts.length > 0 &&
                 selectedContacts.length === contacts.length
               }
-              className="dark:border-1 dark:border-[#81848a]"
+              className="dark:border-1 dark:border-[#81848a] cursor-pointer"
               onCheckedChange={onSelectAll}
             />
           </TableHead>
@@ -69,7 +69,7 @@ const ContactsTable: React.FC<ContactsTableProps> = ({
             <TableCell>
               <Checkbox
                 checked={selectedContacts.includes(contact._id)}
-                className="dark:border-1 dark:border-[#81848a]"
+                className="dark:border-1 dark:border-[#81848a] cursor-pointer"
                 onCheckedChange={(checked) =>
                   onSelectContact(contact._id, Boolean(checked))
                 }
@@ -100,7 +100,8 @@ const ContactsTable: React.FC<ContactsTableProps> = ({
                 {(contact.tags || []).map((tag: string, idx: number) => (
                   <Badge
                     key={idx}
-                    className={`text-xs px-2 py-1 font-medium rounded-sm dark:text-white dark:bg-gray-700 text-black bg-gray-200`}
+                    variant="secondary"
+                    className="text-xs px-2 py-1 font-medium rounded-sm bg-muted text-muted-foreground hover:bg-muted/80"
                   >
                     {tag}
                   </Badge>

@@ -60,10 +60,10 @@ const Register = () => {
         alert("Starting registration...");
         await register(formData.email, formData.password, formData.name, "user");
         console.log("Registration completed successfully");
-        
+
         // Show success message
         alert("Registration successful! Redirecting to personalization...");
-        
+
         // Don't redirect here - let the auth context handle it
       } catch (err: unknown) {
         console.error("Registration error:", err);
@@ -90,8 +90,8 @@ const Register = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 flex items-center justify-center p-4">
-      <Card className="w-full max-w-md shadow-xl border-0 bg-white/80 backdrop-blur">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 flex items-center justify-center p-4">
+      <Card className="w-full max-w-md shadow-xl border-0 bg-white/80 dark:bg-gray-800/90 backdrop-blur">
         <CardHeader className="text-center">
           <div className="mx-auto w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center mb-4">
             <span className="text-white font-bold text-xl">C</span>
@@ -99,7 +99,7 @@ const Register = () => {
           <CardTitle className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
             Create Account
           </CardTitle>
-          <CardDescription>Join CRM Pro today</CardDescription>
+          <CardDescription className="text-muted-foreground">Join CRM Pro today</CardDescription>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-4">
@@ -112,7 +112,7 @@ const Register = () => {
                 value={formData.name}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleInputChange("name", e.target.value)}
                 required
-                className="bg-white/50 border-slate-200"
+                className="bg-background/50 border-input"
               />
             </div>
 
@@ -125,12 +125,12 @@ const Register = () => {
                 value={formData.email}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleInputChange("email", e.target.value)}
                 required
-                className="bg-white/50 border-slate-200"
+                className="bg-background/50 border-input"
               />
             </div>
 
 
-            
+
             <div className="space-y-2">
               <Label htmlFor="password">Password</Label>
               <div className="relative">
@@ -141,7 +141,7 @@ const Register = () => {
                   value={formData.password}
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleInputChange("password", e.target.value)}
                   required
-                  className="bg-white/50 border-slate-200 pr-10"
+                  className="bg-background/50 border-input pr-10"
                 />
                 <Button
                   type="button"
@@ -152,24 +152,24 @@ const Register = () => {
                   tabIndex={-1}
                 >
                   {showPassword ? (
-                    <EyeOff className="h-4 w-4 text-slate-400" />
+                    <EyeOff className="h-4 w-4 text-muted-foreground" />
                   ) : (
-                    <Eye className="h-4 w-4 text-slate-400" />
+                    <Eye className="h-4 w-4 text-muted-foreground" />
                   )}
                 </Button>
               </div>
-              
+
               {formData.password && (
-                <div className="space-y-2 p-3 bg-slate-50 rounded-lg">
-                  <p className="text-xs font-medium text-slate-700">Password Requirements:</p>
+                <div className="space-y-2 p-3 bg-muted/30 rounded-lg">
+                  <p className="text-xs font-medium text-foreground">Password Requirements:</p>
                   {passwordRequirements.map((req, index) => (
                     <div key={index} className="flex items-center space-x-2 text-xs">
                       {req.met ? (
                         <Check className="h-3 w-3 text-green-500" />
                       ) : (
-                        <X className="h-3 w-3 text-slate-400" />
+                        <X className="h-3 w-3 text-muted-foreground" />
                       )}
-                      <span className={req.met ? "text-green-700" : "text-slate-500"}>
+                      <span className={req.met ? "text-green-600 dark:text-green-400" : "text-muted-foreground"}>
                         {req.label}
                       </span>
                     </div>
@@ -188,7 +188,7 @@ const Register = () => {
                   value={formData.confirmPassword}
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleInputChange("confirmPassword", e.target.value)}
                   required
-                  className="bg-white/50 border-slate-200 pr-10"
+                  className="bg-background/50 border-input pr-10"
                 />
                 <Button
                   type="button"
@@ -199,44 +199,44 @@ const Register = () => {
                   tabIndex={-1}
                 >
                   {showConfirmPassword ? (
-                    <EyeOff className="h-4 w-4 text-slate-400" />
+                    <EyeOff className="h-4 w-4 text-muted-foreground" />
                   ) : (
-                    <Eye className="h-4 w-4 text-slate-400" />
+                    <Eye className="h-4 w-4 text-muted-foreground" />
                   )}
                 </Button>
               </div>
               {formData.confirmPassword && formData.password !== formData.confirmPassword && (
-                <p className="text-xs text-red-500">Passwords do not match</p>
+                <p className="text-xs text-red-500 dark:text-red-400">Passwords do not match</p>
               )}
             </div>
 
             <div className="flex items-center space-x-2">
-              <Checkbox 
-                id="terms" 
+              <Checkbox
+                id="terms"
                 checked={formData.acceptTerms}
                 onCheckedChange={(checked: boolean) => handleInputChange("acceptTerms", checked)}
               />
-              <Label htmlFor="terms" className="text-sm text-slate-600">
+              <Label htmlFor="terms" className="text-sm text-muted-foreground">
                 I agree to the{" "}
-                <Link href="#" className="text-blue-600 hover:underline">
+                <Link href="#" className="text-blue-600 dark:text-blue-400 hover:underline">
                   Terms & Conditions
                 </Link>
               </Label>
             </div>
 
-            <Button 
-              type="submit" 
-              className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
+            <Button
+              type="submit"
+              className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white border-0"
               disabled={!formData.acceptTerms || formData.password !== formData.confirmPassword || isLoading}
             >
               {isLoading ? "Creating Account..." : "Create Account"}
             </Button>
-            
+
             {/* Test button for debugging */}
-            <Button 
-              type="button" 
+            <Button
+              type="button"
               variant="outline"
-              className="w-full"
+              className="w-full dark:border-[#343434] dark:bg-[#171717]"
               onClick={() => {
                 console.log("Test button clicked");
                 router.push("/auth/role-selection");
@@ -245,16 +245,16 @@ const Register = () => {
               Test Redirect
             </Button>
 
-            <Button type="button" variant="outline" className="w-full" onClick={handleGoogleRegister}>
+            <Button type="button" className="w-full dark:border-[#343434] dark:bg-[#171717]" onClick={handleGoogleRegister}>
               Sign up with Google
             </Button>
 
             <div className="text-center">
-              <p className="text-sm text-slate-600">
+              <p className="text-sm text-muted-foreground">
                 Already have an account?{" "}
                 <Link
                   href="/auth/login"
-                  className="text-blue-600 hover:underline font-medium"
+                  className="text-blue-600 dark:text-blue-400 hover:underline font-medium"
                 >
                   Sign in here
                 </Link>
