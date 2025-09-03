@@ -16,17 +16,17 @@ const BulkActionsBar: React.FC<BulkActionsBarProps> = ({
   if (selectedCount === 0) return null;
 
   return (
-    <Card className={`bg-blue-50 border-blue-200 ${className}`}>
-      <CardContent className="p-4">
+    <Card className={`bg-accent/50 border-border dark:bg-[#171717] rounded-sm ${className} p-2 px-1`}>
+      <CardContent>
         <div className="flex items-center justify-between">
-          <span className="text-sm font-medium text-blue-700">
+          <span className="text-sm font-medium text-foreground">
             {selectedCount} contact(s) selected
           </span>
-          <div className="flex space-x-2">
+          <div className="flex">
             <Button
               variant="outline"
               size="sm"
-              className="text-red-600 hover:text-red-700"
+              className="text-destructive hover:text-destructive border-destructive/30 hover:bg-destructive/10 dark:bg-[#171717] rounded-sm"
               onClick={onDelete}
             >
               Delete Selected

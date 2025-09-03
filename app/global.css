@@ -6,7 +6,7 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  
+
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
   --color-sidebar-ring: var(--sidebar-ring);
@@ -47,7 +47,6 @@
 
 body {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -55,77 +54,78 @@ body {
 
 :root {
   --radius: 0.75rem;
-  --background: oklch(0.99 0.005 240);
-  --foreground: oklch(0.15 0.01 240);
+  --background: oklch(1 0 0);
+  --foreground: oklch(0 0 0);
   --card: oklch(1 0 0);
-  --card-foreground: oklch(0.15 0.01 240);
+  --card-foreground: oklch(0 0 0);
   --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.15 0.01 240);
-  --primary: oklch(0.55 0.15 280);
-  --primary-foreground: oklch(0.99 0.005 240);
-  --secondary: oklch(0.97 0.01 240);
-  --secondary-foreground: oklch(0.25 0.01 240);
-  --muted: oklch(0.96 0.01 240);
-  --muted-foreground: oklch(0.45 0.01 240);
-  --accent: oklch(0.97 0.01 240);
-  --accent-foreground: oklch(0.25 0.01 240);
-  --destructive: oklch(0.65 0.25 25);
-  --border: oklch(0.92 0.01 240);
-  --input: oklch(0.92 0.01 240);
-  --ring: oklch(0.55 0.15 280);
+  --popover-foreground: oklch(0 0 0);
+  --primary: oklch(0 0 0);
+  --primary-foreground: oklch(1 0 0);
+  --secondary: oklch(0.9 0 0);
+  --secondary-foreground: oklch(0 0 0);
+  --muted: oklch(0.9 0 0);
+  --muted-foreground: oklch(0.4 0 0);
+  --accent: oklch(0.95 0 0);
+  --accent-foreground: oklch(0 0 0);
+  --destructive: oklch(0 0 0);
+  --border: oklch(0.8 0 0);
+  --input: oklch(0.8 0 0);
+  --ring: oklch(0 0 0);
   --chart-1: oklch(0.65 0.15 280);
   --chart-2: oklch(0.65 0.12 200);
   --chart-3: oklch(0.65 0.12 160);
   --chart-4: oklch(0.65 0.12 120);
   --chart-5: oklch(0.65 0.12 80);
-  --sidebar: oklch(0.98 0.005 240);
-  --sidebar-foreground: oklch(0.25 0.01 240);
-  --sidebar-primary: oklch(0.55 0.15 280);
-  --sidebar-primary-foreground: oklch(0.99 0.005 240);
-  --sidebar-accent: oklch(0.96 0.01 240);
-  --sidebar-accent-foreground: oklch(0.25 0.01 240);
-  --sidebar-border: oklch(0.92 0.01 240);
-  --sidebar-ring: oklch(0.55 0.15 280);
+  --sidebar: oklch(1 0 0);
+  --sidebar-foreground: oklch(0 0 0);
+  --sidebar-primary: oklch(0 0 0);
+  --sidebar-primary-foreground: oklch(1 0 0);
+  --sidebar-accent: oklch(0.9 0 0);
+  --sidebar-accent-foreground: oklch(0 0 0);
+  --sidebar-border: oklch(0.8 0 0);
+  --sidebar-ring: oklch(0 0 0);
 }
 
 .dark {
-  --background: oklch(0.08 0.01 240);
-  --foreground: oklch(0.95 0.005 240);
-  --card: oklch(0.12 0.01 240);
-  --card-foreground: oklch(0.95 0.005 240);
-  --popover: oklch(0.12 0.01 240);
-  --popover-foreground: oklch(0.95 0.005 240);
-  --primary: oklch(0.65 0.15 280);
-  --primary-foreground: oklch(0.08 0.01 240);
-  --secondary: oklch(0.18 0.01 240);
-  --secondary-foreground: oklch(0.95 0.005 240);
-  --muted: oklch(0.18 0.01 240);
-  --muted-foreground: oklch(0.65 0.01 240);
-  --accent: oklch(0.18 0.01 240);
-  --accent-foreground: oklch(0.95 0.005 240);
-  --destructive: oklch(0.7 0.2 25);
-  --border: oklch(0.2 0.01 240);
-  --input: oklch(0.2 0.01 240);
-  --ring: oklch(0.65 0.15 280);
+  --background: oklch(0 0 0);
+  --foreground: oklch(1 0 0);
+  --card: oklch(0.05 0 0);
+  --card-foreground: oklch(1 0 0);
+  --popover: oklch(0.05 0 0);
+  --popover-foreground: oklch(1 0 0);
+  --primary: oklch(1 0 0);
+  --primary-foreground: oklch(0 0 0);
+  --secondary: oklch(0.1 0 0);
+  --secondary-foreground: oklch(1 0 0);
+  --muted: oklch(0.1 0 0);
+  --muted-foreground: oklch(0.6 0 0);
+  --accent: oklch(0.05 0 0);
+  --accent-foreground: oklch(1 0 0);
+  --destructive: oklch(1 0 0);
+  --border: oklch(0.2 0 0);
+  --input: oklch(0.2 0 0);
+  --ring: oklch(1 0 0);
   --chart-1: oklch(0.65 0.15 280);
   --chart-2: oklch(0.65 0.12 200);
   --chart-3: oklch(0.65 0.12 160);
   --chart-4: oklch(0.65 0.12 120);
   --chart-5: oklch(0.65 0.12 80);
-  --sidebar: oklch(0.12 0.01 240);
-  --sidebar-foreground: oklch(0.95 0.005 240);
-  --sidebar-primary: oklch(0.65 0.15 280);
-  --sidebar-primary-foreground: oklch(0.08 0.01 240);
-  --sidebar-accent: oklch(0.18 0.01 240);
-  --sidebar-accent-foreground: oklch(0.95 0.005 240);
-  --sidebar-border: oklch(0.2 0.01 240);
-  --sidebar-ring: oklch(0.65 0.15 280);
+  --sidebar: oklch(0 0 0);
+  --sidebar-foreground: oklch(1 0 0);
+  --sidebar-primary: oklch(1 0 0);
+  --sidebar-primary-foreground: oklch(0 0 0);
+  --sidebar-accent: oklch(0.1 0 0);
+  --sidebar-accent-foreground: oklch(1 0 0);
+  --sidebar-border: oklch(0.2 0 0);
+  --sidebar-ring: oklch(1 0 0);
 }
 
 @layer base {
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground;
   }
@@ -136,15 +136,15 @@ body {
   .mobile-only {
     @apply block xl:hidden;
   }
-  
+
   .desktop-only {
     @apply hidden xl:block;
   }
-  
+
   .tablet-up {
     @apply hidden md:block;
   }
-  
+
   .mobile-up {
     @apply block md:hidden;
   }
@@ -161,12 +161,12 @@ body {
     padding-left: 1rem;
     padding-right: 1rem;
   }
-  
+
   .mobile-text-sm {
     font-size: 0.875rem;
     line-height: 1.25rem;
   }
-  
+
   .mobile-text-xs {
     font-size: 0.75rem;
     line-height: 1rem;
@@ -179,36 +179,36 @@ body {
     min-height: 44px;
     min-width: 44px;
   }
-  
+
   .touch-friendly {
     padding: 0.75rem;
     margin: 0.25rem;
   }
 }
 
-/* Modern gradient backgrounds */
+/* Modern gradient backgrounds - Theme aware */
 .gradient-bg {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--primary) / 0.8) 100%);
 }
 
 .gradient-bg-soft {
-  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  background: linear-gradient(135deg, hsl(var(--secondary)) 0%, hsl(var(--secondary) / 0.8) 100%);
 }
 
 .gradient-bg-blue {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--primary) / 0.8) 100%);
 }
 
 .gradient-bg-green {
-  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  background: linear-gradient(135deg, hsl(var(--secondary)) 0%, hsl(var(--secondary) / 0.8) 100%);
 }
 
 .gradient-bg-purple {
-  background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+  background: linear-gradient(135deg, hsl(var(--accent)) 0%, hsl(var(--accent) / 0.8) 100%);
 }
 
 .gradient-bg-orange {
-  background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+  background: linear-gradient(135deg, hsl(var(--muted)) 0%, hsl(var(--muted) / 0.8) 100%);
 }
 
 /* Modern card shadows */
@@ -228,20 +228,16 @@ body {
 /* Modern button styles */
 .btn-modern {
   @apply rounded-full px-6 py-3 font-medium transition-all duration-300 transform hover:scale-105;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+  background: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--primary) / 0.8) 100%);
+  box-shadow: 0 4px 15px hsl(var(--primary) / 0.4);
+  color: hsl(var(--primary-foreground));
 }
 
 .btn-modern:hover {
-  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+  box-shadow: 0 6px 20px hsl(var(--primary) / 0.6);
 }
 
-/* Modern sidebar styles */
-.sidebar-modern {
-  background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
-  border-right: 1px solid rgba(148, 163, 184, 0.1);
-  box-shadow: 4px 0 15px rgba(0, 0, 0, 0.05);
-}
+
 
 /* Walkthrough zoom effects */
 .walkthrough-zoom {
@@ -260,8 +256,13 @@ body {
 /* Modern chart styles */
 .chart-modern {
   border-radius: 16px;
-  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+  background: hsl(var(--card));
+  border: 1px solid hsl(var(--border));
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.dark .chart-modern {
+  box-shadow: 0 4px 6px -1px rgba(255, 255, 255, 0.05);
 }
 
 /* Glass morphism effect */
@@ -332,4 +333,352 @@ body {
 
 .safe-area-right {
   padding-right: env(safe-area-inset-right);
+}
+
+/* Complete Date picker dark theme overrides */
+.rdrCalendarWrapper {
+  background: hsl(var(--popover)) !important;
+  color: hsl(var(--popover-foreground)) !important;
+  border: 1px solid hsl(var(--border)) !important;
+  border-radius: 8px !important;
+}
+
+.rdrMonth {
+  background: hsl(var(--popover)) !important;
+}
+
+.rdrWeekDays {
+  background: hsl(var(--popover)) !important;
+}
+
+.rdrWeekDay {
+  color: hsl(var(--muted-foreground)) !important;
+  background: hsl(var(--popover)) !important;
+}
+
+.rdrDay {
+  background: hsl(var(--popover)) !important;
+}
+
+.rdrDay span {
+  color: hsl(var(--popover-foreground)) !important;
+  background: transparent !important;
+}
+
+.rdrDay:not(.rdrDayPassive) .rdrInRange~.rdrDayNumber span,
+.rdrDay:not(.rdrDayPassive) .rdrStartEdge~.rdrDayNumber span,
+.rdrDay:not(.rdrDayPassive) .rdrEndEdge~.rdrDayNumber span,
+.rdrDay:not(.rdrDayPassive) .rdrSelected~.rdrDayNumber span {
+  color: hsl(var(--primary-foreground)) !important;
+}
+
+.rdrDayToday .rdrDayNumber span:after {
+  background: hsl(var(--primary)) !important;
+}
+
+.rdrDayHovered span {
+  background: hsl(var(--accent)) !important;
+  color: hsl(var(--accent-foreground)) !important;
+}
+
+.rdrDayActive span {
+  background: hsl(var(--primary)) !important;
+  color: hsl(var(--primary-foreground)) !important;
+}
+
+.rdrDaySelected span {
+  background: hsl(var(--primary)) !important;
+  color: hsl(var(--primary-foreground)) !important;
+}
+
+.rdrInRange {
+  background: hsl(var(--primary) / 0.1) !important;
+  color: hsl(var(--popover-foreground)) !important;
+}
+
+.rdrStartEdge,
+.rdrEndEdge {
+  background: hsl(var(--primary)) !important;
+  color: hsl(var(--primary-foreground)) !important;
+}
+
+.rdrStartEdge span,
+.rdrEndEdge span {
+  background: hsl(var(--primary)) !important;
+  color: hsl(var(--primary-foreground)) !important;
+}
+
+.rdrMonthAndYearWrapper {
+  background: hsl(var(--popover)) !important;
+  color: hsl(var(--popover-foreground)) !important;
+  border-bottom: 1px solid hsl(var(--border)) !important;
+}
+
+.rdrMonthAndYearPickers select {
+  background: hsl(var(--popover)) !important;
+  color: hsl(var(--popover-foreground)) !important;
+  border: 1px solid hsl(var(--border)) !important;
+}
+
+.rdrNextPrevButton {
+  background: hsl(var(--secondary)) !important;
+  color: hsl(var(--secondary-foreground)) !important;
+  border: 1px solid hsl(var(--border)) !important;
+}
+
+.rdrNextPrevButton:hover {
+  background: hsl(var(--accent)) !important;
+  color: hsl(var(--accent-foreground)) !important;
+}
+
+.rdrPprevButton i,
+.rdrNextButton i {
+  border-color: transparent hsl(var(--popover-foreground)) transparent transparent !important;
+}
+
+.rdrNextButton i {
+  border-color: transparent transparent transparent hsl(var(--popover-foreground)) !important;
+}
+
+/* Override all blue colors in date picker */
+.rdrSelected,
+.rdrInRange,
+.rdrStartEdge,
+.rdrEndEdge {
+  background: hsl(var(--primary)) !important;
+}
+
+.rdrDefinedRangesWrapper {
+  background: hsl(var(--popover)) !important;
+  border-right: 1px solid hsl(var(--border)) !important;
+}
+
+.rdrStaticRange {
+  background: hsl(var(--popover)) !important;
+  color: hsl(var(--popover-foreground)) !important;
+  border: 1px solid transparent !important;
+}
+
+.rdrStaticRange:hover,
+.rdrStaticRange:focus {
+  background: hsl(var(--accent)) !important;
+  color: hsl(var(--accent-foreground)) !important;
+}
+
+.rdrStaticRangeSelected {
+  background: hsl(var(--primary)) !important;
+  color: hsl(var(--primary-foreground)) !important;
+}
+
+/* Force remove all blue backgrounds and use theme colors */
+.react-daterange-picker__wrapper {
+  background: hsl(var(--background)) !important;
+  border: 1px solid hsl(var(--border)) !important;
+}
+
+.react-daterange-picker__inputGroup {
+  background: hsl(var(--background)) !important;
+  color: hsl(var(--foreground)) !important;
+}
+
+.react-daterange-picker__clear-button,
+.react-daterange-picker__calendar-button {
+  background: hsl(var(--background)) !important;
+  color: hsl(var(--foreground)) !important;
+}
+
+/* Comprehensive blue color removal */
+.rdrDayStartPreview,
+.rdrDayInPreview,
+.rdrDayEndPreview {
+  background: hsl(var(--primary)) !important;
+  color: hsl(var(--primary-foreground)) !important;
+}
+
+/* Force override blue selections */
+.rdrCalendarWrapper .rdrDayHovered .rdrDayNumber span {
+  background: hsl(var(--accent)) !important;
+  color: hsl(var(--accent-foreground)) !important;
+}
+
+.rdrCalendarWrapper .rdrDayActive .rdrDayNumber span {
+  background: hsl(var(--primary)) !important;
+  color: hsl(var(--primary-foreground)) !important;
+}
+
+.rdrCalendarWrapper .rdrInRange .rdrDayNumber span {
+  background: hsl(var(--primary) / 0.3) !important;
+  color: hsl(var(--primary-foreground)) !important;
+}
+
+.rdrCalendarWrapper .rdrStartEdge .rdrDayNumber span,
+.rdrCalendarWrapper .rdrEndEdge .rdrDayNumber span {
+  background: hsl(var(--primary)) !important;
+  color: hsl(var(--primary-foreground)) !important;
+}
+
+/* Remove all blues completely */
+.rdrCalendarWrapper * {
+  color: inherit !important;
+}
+
+.rdrCalendarWrapper [style*="background-color: rgb(51, 130, 246)"],
+.rdrCalendarWrapper [style*="background: rgb(51, 130, 246)"],
+.rdrCalendarWrapper [style*="background-color: #3b82f6"],
+.rdrCalendarWrapper [style*="background: #3b82f6"] {
+  background: hsl(var(--primary)) !important;
+  color: hsl(var(--primary-foreground)) !important;
+}
+
+.rdrCalendarWrapper [style*="color: rgb(51, 130, 246)"],
+.rdrCalendarWrapper [style*="color: #3b82f6"] {
+  color: hsl(var(--primary)) !important;
+}
+
+/* Target specific blue background overrides */
+.rdrDayNumber {
+  color: hsl(var(--popover-foreground)) !important;
+}
+
+.rdrSelected .rdrDayNumber span {
+  background: hsl(var(--primary)) !important;
+  color: hsl(var(--primary-foreground)) !important;
+}
+
+.rdrInRange .rdrDayNumber span {
+  background: hsl(var(--primary) / 0.2) !important;
+  color: hsl(var(--popover-foreground)) !important;
+}
+
+/* Activities page specific overrides */
+.activities-timeline .date-picker-container button {
+  background: hsl(var(--background)) !important;
+  color: hsl(var(--foreground)) !important;
+  border: 1px solid hsl(var(--border)) !important;
+}
+
+.activities-timeline .date-picker-container button:hover {
+  background: hsl(var(--accent)) !important;
+  color: hsl(var(--accent-foreground)) !important;
+}
+
+.activities-timeline .date-picker-container button[data-variant="default"] {
+  background: hsl(var(--primary)) !important;
+  color: hsl(var(--primary-foreground)) !important;
+}
+
+.activities-timeline .date-picker-container button[data-variant="default"]:hover {
+  background: hsl(var(--primary) / 0.8) !important;
+  color: hsl(var(--primary-foreground)) !important;
+}
+
+/* Remove any purple/violet colors from activities page */
+.activities-timeline button,
+.activities-timeline .btn-modern,
+.activities-timeline [class*="purple"],
+.activities-timeline [class*="violet"],
+.activities-timeline [class*="blue"] {
+  background: hsl(var(--primary)) !important;
+  color: hsl(var(--primary-foreground)) !important;
+}
+
+/* Ensure all activities page elements use theme colors */
+.activities-timeline [style*="background-color: purple"],
+.activities-timeline [style*="background-color: violet"],
+.activities-timeline [style*="background-color: blue"],
+.activities-timeline [style*="background: purple"],
+.activities-timeline [style*="background: violet"],
+.activities-timeline [style*="background: blue"] {
+  background: hsl(var(--primary)) !important;
+  color: hsl(var(--primary-foreground)) !important;
+}
+
+.activities-timeline [style*="color: purple"],
+.activities-timeline [style*="color: violet"],
+.activities-timeline [style*="color: blue"] {
+  color: hsl(var(--primary)) !important;
+}
+
+/* Override any hardcoded blue/purple values */
+.activities-timeline * {
+  color: inherit;
+}
+
+.activities-timeline .bg-blue-50,
+.activities-timeline .border-blue-500,
+.activities-timeline .text-blue-600,
+.activities-timeline .text-blue-700 {
+  background: hsl(var(--accent)) !important;
+  border-color: hsl(var(--border)) !important;
+  color: hsl(var(--accent-foreground)) !important;
+}
+
+/* Enhanced activities page styling */
+.activities-timeline {
+  background: hsl(var(--background));
+  min-height: 100vh;
+}
+
+.activities-timeline .activity-card {
+  background: hsl(var(--card));
+  border: 1px solid hsl(var(--border));
+  transition: all 0.2s ease-in-out;
+}
+
+.activities-timeline .activity-card:hover {
+  background: hsl(var(--accent) / 0.3);
+  border-color: hsl(var(--accent));
+}
+
+.activities-timeline .filter-button {
+  background: hsl(var(--background));
+  border: 1px solid hsl(var(--border));
+  color: hsl(var(--foreground));
+  transition: all 0.2s ease-in-out;
+}
+
+.activities-timeline .filter-button:hover {
+  background: hsl(var(--accent));
+  color: hsl(var(--accent-foreground));
+}
+
+/* Better typography for activities */
+.activities-timeline h1 {
+  color: hsl(var(--foreground));
+  font-weight: 600;
+  letter-spacing: -0.025em;
+}
+
+.activities-timeline h3 {
+  color: hsl(var(--foreground));
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+/* Dark theme enhancements */
+.dark .activities-timeline {
+  background: hsl(var(--background));
+}
+
+.dark .activities-timeline .activity-card {
+  background: hsl(var(--card));
+  border-color: hsl(var(--border));
+  box-shadow: 0 1px 3px rgba(255, 255, 255, 0.05);
+}
+
+.dark .activities-timeline .activity-card:hover {
+  background: hsl(var(--accent) / 0.2);
+  border-color: hsl(var(--accent));
+}
+
+/* Activity icon styling */
+.activities-timeline .activity-icon {
+  background: hsl(var(--primary) / 0.1);
+  border: 1px solid hsl(var(--border));
+  color: hsl(var(--primary));
+}
+
+.dark .activities-timeline .activity-icon {
+  background: hsl(var(--primary) / 0.15);
+  border-color: hsl(var(--border));
 }

@@ -2,8 +2,7 @@
 import React, { useState, useCallback, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Search, Grid3X3, List } from "lucide-react";
+import { Search, Grid3X3, List, Filter } from "lucide-react";
 import { useContacts, useDeleteContact, useDeleteMultipleContacts } from "@/hooks/apis/contact-service";
 import { useTags } from "@/hooks/apis/tag-service";
 import SMSMessage from "@/components/sms-message";
@@ -64,10 +63,10 @@ const Contacts = () => {
         setViewMode("grid");
       }
     };
-    
+
     // Set initial view mode
     handleResize();
-    
+
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
@@ -117,101 +116,102 @@ const Contacts = () => {
   }, [isMobile]);
 
   return (
-    <div className="space-y-6 m-7">
-      <Card className="p-5">
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-          <div>
-            <h1 className="text-3xl font-bold bg-gradient-to-r from-slate-900 to-slate-600 bg-clip-text text-transparent contact-heading" id="wt-contacts-page-title">
-              Contacts
-            </h1>
-            <p className="text-slate-600 mt-2">
-              Manage your customer relationships
-            </p>
+    <div className="min-h-screen bg-background p-6">
+      <div className="space-y-6">
+        {/* Header Section */}
+        <div className="space-y-2">
+          <h1 className="text-3xl font-bold text-foreground contact-heading" id="wt-contacts-page-title">
+            Contacts
+          </h1>
+          <p className="text-muted-foreground">
+            Manage your contact database
+          </p>
+        </div>
+
+        {/* Search and Filter Bar */}
+        <div className="flex flex-col sm:flex-row gap-4 items-center justify-between">
+          <div className="flex flex-1 gap-4 items-center">
+            <div className="flex-1 relative search-contacts max-w-md" id="wt-contacts-search-input">
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+              <Input
+                placeholder="Search contacts..."
+                className="pl-10 border-border rounded-sm focus:outline-none dark:bg-[#171717]"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+              />
+            </div>
+            <Button
+              className=""
+            >
+              <Filter className="h-4 w-4 mr-2" />
+              Filter by tag
+            </Button>
           </div>
 
-          <div className="flex flex-wrap gap-2">
+          <div className="flex items-center gap-2">
             <Button
-              className="bg-gradient-to-r from-blue-600 to-purple-600 contact-add-contact-button"
+              variant="outline"
+              className="border-border hover:bg-muted contact-import-csv-button rounded-sm dark:bg-[#171717]"
+              id="wt-import-csv-btn"
+              onClick={openCsvModal}
+            >
+              Import CSV
+            </Button>
+            <Button
+              className="bg-foreground text-background hover:bg-foreground/90 contact-add-contact-button rounded-sm dark:bg-[#171717] dark:text-white"
               id="wt-add-contact-btn"
               onClick={openAddModal}
             >
               Add Contact
             </Button>
 
-            <SMSMessage className="contact-sms-button" />
-
-            <Button
-              variant="outline"
-              className="contact-import-csv-button"
-              id="wt-import-csv-btn"
-              onClick={openCsvModal}
-            >
-              Import CSV
-            </Button>
+            {/* View mode toggle */}
+            <div className="flex border border-border rounded-sm overflow-hidden view-mode-buttons dark:bg-[#171717] dark:border-[#2a2a2a]" id="wt-contacts-view-toggle">
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => handleViewModeChange("list")}
+                className={`rounded-tl-sm rounded-bl-sm rounded-tr-none rounded-br-none border-0 h-9 px-3 ${viewMode === "list"
+                  ? "bg-muted text-foreground"
+                  : "hover:bg-muted/50"
+                  }`}
+              >
+                <List className="h-4 w-4" />
+              </Button>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => handleViewModeChange("grid")}
+                className={`rounded-tr-sm rounded-br-sm rounded-tl-none rounded-bl-none border-0 h-9 px-3 ${viewMode === "grid"
+                  ? "bg-muted text-foreground"
+                  : "hover:bg-muted/50"
+                  }`}
+              >
+                <Grid3X3 className="h-4 w-4" />
+              </Button>
+            </div>
           </div>
         </div>
-      </Card>
 
-      {/* Filters and Search */}
-      <Card className="p-4">
-        <div className="flex flex-col sm:flex-row gap-4">
-          <div className="flex-1 relative search-contacts" id="wt-contacts-search-input">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-slate-400" />
-            <Input
-              placeholder="Search contacts..."
-              className="pl-10"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-            />
-          </div>
-        </div>
-      </Card>
+        {/* Bulk Actions Bar */}
+        <BulkActionsBar
+          selectedCount={selectedContacts.length}
+          onDelete={handleDelete}
+        />
 
-      <div className="flex flex-row-reverse items-end overflow-hidden">
-        {/* View mode toggle - show only grid button on mobile/tablet, both buttons on desktop */}
-        <div className="flex border rounded-lg overflow-hidden view-mode-buttons" id="wt-contacts-view-toggle">
-          <Button
-            variant={viewMode === "list" ? "default" : "ghost"}
-            size="sm"
-            onClick={() => handleViewModeChange("list")}
-            className="hidden xl:flex rounded-none border-0"
-          >
-            <List className="h-4 w-4 mr-2"/>
-            List
-          </Button>
-          <Button
-            variant={viewMode === "grid" ? "default" : "ghost"}
-            size="sm"
-            onClick={() => handleViewModeChange("grid")}
-            className="rounded-none border-0"
-          >
-            <Grid3X3 className="h-4 w-4 mr-2" />
-            Grid
-          </Button>
-        </div>
-      </div>
-
-      {/* Bulk Actions Bar */}
-      <BulkActionsBar
-        selectedCount={selectedContacts.length}
-        onDelete={handleDelete}
-      />
-
-      {/* Contacts Display */}
-      <Card className="contact-list" id="wt-contacts-list-container">
-        <CardHeader>
-          <CardTitle>All Contacts ({contacts.length})</CardTitle>
-        </CardHeader>
-        <CardContent>
+        {/* Contacts Display */}
+        <div className="contact-list bg-card border border-border  rounded-sm dark:bg-[#171717]" id="wt-contacts-list-container">
           {viewMode === "grid" || isMobile || window.innerWidth < 1320 ? (
-            <ContactsGrid
-              contacts={contacts}
-              selectedContacts={selectedContacts}
-              onSelectContact={handleSelectContact}
-              onSelectAll={handleSelectAll}
-              onDeleteContact={handleDeleteOne}
-              tagColorMap={tagColorMap}
-            />
+            <div className="p-6">
+              <ContactsGrid
+                contacts={contacts}
+                selectedContacts={selectedContacts}
+                onSelectContact={handleSelectContact}
+                onSelectAll={handleSelectAll}
+                onDeleteContact={handleDeleteOne}
+                tagColorMap={tagColorMap}
+              />
+            </div>
           ) : (
             <ContactsTable
               contacts={contacts}
@@ -222,65 +222,67 @@ const Contacts = () => {
               tagColorMap={tagColorMap}
             />
           )}
-        </CardContent>
-      </Card>
-
-      {/* Pagination */}
-      <div className="flex justify-center items-center space-x-2 mt-6">
-        <Button
-          variant="outline"
-          size="sm"
-          disabled={!hasPrev}
-          onClick={() => setPagenumber((prev) => Math.max(1, prev - 1))}
-        >
-          Prev
-        </Button>
-
-        {visible.map((pageNum) => (
-          <Button
-            key={pageNum}
-            size="sm"
-            variant={pagenumber === pageNum ? "default" : "outline"}
-            className={
-              pagenumber === pageNum ? "font-bold bg-blue-600 text-white" : ""
-            }
-            onClick={() => setPagenumber(pageNum)}
-          >
-            {pageNum}
-          </Button>
-        ))}
-
-        <Button
-          variant="outline"
-          size="sm"
-          disabled={!hasNext}
-          onClick={() => setPagenumber((prev) => prev + 1)}
-        >
-          Next
-        </Button>
-      </div>
-
-      {/* Pagination Info */}
-      {contacts.length > 0 && (
-        <div className="text-center text-sm text-slate-600">
-          Page {pagenumber} - Showing {contacts.length} contacts
         </div>
-      )}
 
-      {/* Page-specific walkthrough */}
-      <Walkthrough steps={getPageWalkthroughSteps(WalkthroughPage.CONTACTS)} auto_start={true} page_name={WalkthroughPage.CONTACTS} />
+        {/* Pagination */}
+        <div className="flex justify-center items-center space-x-2 mt-6">
+          <Button
+            variant="outline"
+            size="sm"
+            disabled={!hasPrev}
+            className="hover:bg-muted rounded-sm dark:bg-[#171717]"
+            onClick={() => setPagenumber((prev) => Math.max(1, prev - 1))}
+          >
+            Prev
+          </Button>
 
-      {/* Dialogs */}
-      <ContactFormDialog
-        open={isAddModalOpen}
-        onOpenChange={closeAddModal}
-      />
+          {visible.map((pageNum) => (
+            <Button
+              key={pageNum}
+              size="sm"
+              variant={pagenumber === pageNum ? "default" : "outline"}
+              className={
+                pagenumber === pageNum ? "font-bold bg-foreground text-background rounded-sm" : "hover:bg-muted rounded-sm"
+              }
+              onClick={() => setPagenumber(pageNum)}
+            >
+              {pageNum}
+            </Button>
+          ))}
 
-      <CsvImportDialog
-        open={csvModalOpen}
-        onOpenChange={closeCsvModal}
-        onContactSelect={handleContactSelect}
-      />
+          <Button
+            variant="outline"
+            size="sm"
+            disabled={!hasNext}
+            className="hover:bg-muted rounded-sm dark:bg-[#171717]"
+            onClick={() => setPagenumber((prev) => prev + 1)}
+          >
+            Next
+          </Button>
+        </div>
+
+        {/* Pagination Info */}
+        {contacts.length > 0 && (
+          <div className="text-center text-sm text-muted-foreground">
+            Page {pagenumber} - Showing {contacts.length} contacts
+          </div>
+        )}
+
+        {/* Page-specific walkthrough */}
+        <Walkthrough steps={getPageWalkthroughSteps(WalkthroughPage.CONTACTS)} auto_start={true} page_name={WalkthroughPage.CONTACTS} />
+
+        {/* Dialogs */}
+        <ContactFormDialog
+          open={isAddModalOpen}
+          onOpenChange={closeAddModal}
+        />
+
+        <CsvImportDialog
+          open={csvModalOpen}
+          onOpenChange={closeCsvModal}
+          onContactSelect={handleContactSelect}
+        />
+      </div>
     </div>
   );
 };

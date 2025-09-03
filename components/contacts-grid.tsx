@@ -30,16 +30,17 @@ const ContactsGrid: React.FC<ContactsGridProps> = ({
   const router = useRouter();
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-4 ">
       {/* Select All for Grid View */}
-      <div className="flex items-center space-x-2 pb-2 border-b">
+      <div className="flex items-center space-x-2 pb-2 border-b border-border dark:border-[#81848a]">
         <Checkbox
           checked={
             contacts.length > 0 && selectedContacts.length === contacts.length
           }
           onCheckedChange={onSelectAll}
+          className="dark:border-1 dark:border-[#81848a]"
         />
-        <span className="text-sm text-slate-600">
+        <span className="text-sm text-muted-foreground">
           Select All ({contacts.length} contacts)
         </span>
       </div>
@@ -49,11 +50,10 @@ const ContactsGrid: React.FC<ContactsGridProps> = ({
         {contacts.map((contact: TContact) => (
           <Card
             key={contact._id}
-            className={`hover:shadow-lg transition-shadow cursor-pointer ${
-              selectedContacts.includes(contact._id)
-                ? "ring-2 ring-blue-500 bg-blue-50"
-                : ""
-            }`}
+            className={`hover:shadow-lg transition-shadow cursor-pointer border-border ${selectedContacts.includes(contact._id)
+              ? "ring-2 ring-primary bg-accent/20"
+              : "bg-card"
+              }`}
             onClick={() =>
               onSelectContact(
                 contact._id,
@@ -74,13 +74,13 @@ const ContactsGrid: React.FC<ContactsGridProps> = ({
                     <h3 className="font-semibold text-sm">
                       <Link
                         href={`/contacts/${contact._id}`}
-                        className="hover:underline text-blue-700"
+                        className="hover:underline text-foreground"
                         onClick={(e) => e.stopPropagation()}
                       >
                         {contact.name}
                       </Link>
                     </h3>
-                    <p className="text-xs text-slate-600">{contact.company}</p>
+                    <p className="text-xs text-muted-foreground">{contact.company}</p>
                   </div>
                 </div>
                 <Checkbox
@@ -88,16 +88,17 @@ const ContactsGrid: React.FC<ContactsGridProps> = ({
                   onCheckedChange={(checked) =>
                     onSelectContact(contact._id, Boolean(checked))
                   }
+                  className="dark:border-1 dark:border-[#81848a]"
                   onClick={(e) => e.stopPropagation()}
                 />
-              </div>    
+              </div>
 
               <div className="space-y-2 mb-3">
-                <div className="flex items-center space-x-2 text-xs text-slate-600">
+                <div className="flex items-center space-x-2 text-xs text-muted-foreground">
                   <span className="font-medium">Email:</span>
                   <span className="truncate">{contact.email}</span>
                 </div>
-                <div className="flex items-center space-x-2 text-xs text-slate-600">
+                <div className="flex items-center space-x-2 text-xs text-muted-foreground">
                   <span className="font-medium">Phone:</span>
                   <span>{contact.phone}</span>
                 </div>
@@ -108,12 +109,8 @@ const ContactsGrid: React.FC<ContactsGridProps> = ({
                   {(contact.tags || []).map((tag: string, idx: number) => (
                     <Badge
                       key={idx}
-                      variant="outline"
-                      className="text-xs border-0"
-                      style={{
-                        backgroundColor: tagColorMap[tag] || "#e5e7eb",
-                        color: "#ffffff",
-                      }}
+                      variant="secondary"
+                      className="text-xs px-2 py-1 font-medium rounded-sm dark:text-white dark:bg-gray-700 text-black bg-gray-200"
                     >
                       {tag}
                     </Badge>
@@ -122,7 +119,7 @@ const ContactsGrid: React.FC<ContactsGridProps> = ({
               </div>
 
               <div className="flex justify-between items-center">
-                <span className="text-xs text-slate-500">
+                <span className="text-xs text-muted-foreground">
                   {contact.lastInteraction ? new Date(contact.lastInteraction).toLocaleDateString() : "No recent activity"}
                 </span>
                 <div className="flex space-x-1" id="wt-contact-actions">
@@ -139,7 +136,7 @@ const ContactsGrid: React.FC<ContactsGridProps> = ({
                   <Button
                     variant="ghost"
                     size="sm"
-                    className="text-red-600 hover:text-red-700"
+                    className="text-destructive hover:text-destructive hover:bg-destructive/10"
                     onClick={(e) => {
                       e.stopPropagation();
                       onDeleteContact(contact._id);
